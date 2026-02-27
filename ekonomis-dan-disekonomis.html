@@ -1,0 +1,407 @@
+<style>
+    /* --- CSS PERBAIKAN (SCOPED) --- */
+    /* Menggunakan class pembungkus agar tidak merusak tema blog asli */
+    .custom-article-wrapper {
+        --primary-color: #2c3e50;
+        --accent-color: #e67e22;
+        --bg-light: #f4f7f6;
+        --text-dark: #333;
+        --success-color: #27ae60;
+        --danger-color: #c0392b;
+        
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.7;
+        color: #333; /* Fallback color */
+        color: var(--text-dark);
+        background-color: #f4f7f6; /* Fallback color */
+        background-color: var(--bg-light);
+        padding: 20px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        overflow: hidden; /* Mencegah elemen keluar batas */
+    }
+
+    /* Typography Lokal */
+    .custom-article-wrapper h1, 
+    .custom-article-wrapper h2, 
+    .custom-article-wrapper h3 {
+        color: #2c3e50;
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-top: 1.5em;
+    }
+
+    .custom-article-wrapper p {
+        margin-bottom: 1.5em;
+        font-size: 1.1rem;
+    }
+
+    /* Hero Section Diperbaiki */
+    .custom-article-wrapper .hero-header {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2JHYQsOMT_KI-zloHbc_ysk8qf5drS9NVWWkQYAIfGvT57IPGVBEgiHqhocdkxeFDDb5YIu-slDeiHxnnbzLzqZIVbZxcWD9M-7z4yv4BN0msaPMcBTX6qfIQ6n-6w7Mon5qEOInhnXOuGjcgU09mheYk5a3-tSzNz62Khud9m6Up6UT5DXpxHSJvumk/s1600/welcome.png');
+        background-size: cover;
+        background-position: center;
+        height: 400px; /* Tinggi fix agar tidak terlalu besar di blog */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Typo diperbaiki */
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding: 20px;
+        width: 100%; /* PENTING: Mengikuti lebar postingan, bukan layar */
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-sizing: border-box;
+    }
+
+    .custom-article-wrapper .hero-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        line-height: 1.2;
+    }
+
+    .custom-article-wrapper .hero-header p.subtitle {
+        font-size: 1.2rem;
+        font-weight: 300;
+        color: #eee;
+    }
+
+    /* Content Sections */
+    .custom-article-wrapper section.blog-section {
+        background: white;
+        padding: 30px;
+        margin: 20px 0;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+
+    .custom-article-wrapper section.blog-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Images */
+    .custom-article-wrapper figure.content-image {
+        margin: 2em 0;
+        text-align: center;
+    }
+
+    .custom-article-wrapper figure.content-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .custom-article-wrapper figcaption {
+        font-style: italic;
+        color: #666;
+        margin-top: 10px;
+        font-size: 0.9rem;
+    }
+
+    /* Interactive Elements */
+    .custom-article-wrapper .interactive-box {
+        background: #eef2f7;
+        border-left: 5px solid #e67e22; /* Fallback */
+        border-left: 5px solid var(--accent-color);
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    /* Economies Demo */
+    #scale-demo-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .factory-unit {
+        width: 50px;
+        height: 50px;
+        background: #27ae60; /* Fallback */
+        background: var(--success-color);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-adventure {
+        padding: 10px 20px;
+        background-color: #e67e22; /* Fallback */
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.3s;
+        margin: 5px;
+    }
+
+    .btn-adventure:hover {
+        background-color: #d35400;
+    }
+
+    /* Canvas Responsiveness */
+    #chaos-canvas {
+        background: white;
+        border: 2px solid #c0392b; /* Fallback */
+        border: 2px solid var(--danger-color);
+        border-radius: 8px;
+        display: block;
+        margin: 20px auto;
+        max-width: 100%; /* Agar tidak melebar di HP */
+        height: auto;
+    }
+
+    /* Media Query untuk HP */
+    @media (max-width: 600px) {
+        .custom-article-wrapper { padding: 10px; }
+        .custom-article-wrapper .hero-header h1 { font-size: 1.8rem; }
+        .custom-article-wrapper section.blog-section { padding: 15px; }
+    }
+</style>
+
+<div class="custom-article-wrapper">
+
+    <header class="hero-header">
+        <h1>Ekspedisi Gunung Skala</h1>
+        <p class="subtitle">Sebuah kisah tentang menjadi besar, menjadi efisien, dan bahaya menjadi terlalu raksasa.</p>
+    </header>
+    <main class="container">
+
+        <section class="blog-section visible">
+            <h2>Selamat Datang, Para Petualang Bisnis!</h2>
+            <p>Bayangkan diri Anda berdiri di kaki sebuah gunung raksasa yang puncaknya tertutup awan. Gunung ini kita sebut "Gunung Skala". Dalam dunia bisnis, setiap perusahaan—mulai dari kedai kopi kecil di ujung jalan hingga raksasa teknologi global—sedang mencoba mendaki gunung ini.</p>
+            <p>Tujuannya? Mencapai ketinggian di mana udara segar keuntungan mengalir deras dan usaha yang dikeluarkan terasa ringan. Namun, pendakian ini penuh dengan keajaiban sekaligus jebakan mematikan.</p>
+            <p>Hari ini, kita akan membuka peta harta karun yang menjelaskan dua fenomena paling krusial dalam perjalanan ini: <strong>Ekonomis Skala (The Economies of Scale)</strong> dan saudara kembarnya yang jahat, <strong>Disekonomis Skala (The Diseconomies of Scale)</strong>. Siapkan perlengkapan Anda, kita mulai mendaki!</p>
+        </section>
+
+        <section class="blog-section">
+            <h2>Bab 1: Pendakian yang Ajaib (Economies of Scale)</h2>
+            
+            <figure class="content-image">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3wo2o4FQzSbXjAWh4C_X0XWs4zxWqtjTRkXwIJJC3DPKY6KVNwp43ZywRAYpq78qTopvZuEJy03_W-l9v8KMovwY_ws7Wl2f-8JL3Y_40z1vzKRpZqSZh8oWJsuKQrGiCYeKMUd5VByJ5CVnp4zb-0HkJ8UsF1Gv_Cn2oREIUUOEXTc_FS8hPBVPNiIM/s320/pabrik.png" alt="Pabrik yang efisien dan modern">
+                <figcaption>Gambar 1: Saat kita mendaki, peralatan kita menjadi lebih canggih dan efisien.</figcaption>
+            </figure>
+
+            <p>Di awal perjalanan, saat bisnis Anda masih kecil, segalanya terasa mahal. Anda membeli bahan baku sedikit demi sedikit dengan harga eceran. Anda melakukan semuanya sendiri secara manual. "Biaya per langkah" Anda sangat tinggi.</p>
+            <p>Tapi kemudian, keajaiban terjadi saat Anda mulai tumbuh. Inilah yang disebut <strong>Ekonomis Skala</strong>.</p>
+
+            <div class="interactive-box">
+                <h3>Definisi Sang Petualang:</h3>
+                <p><em>Ekonomis Skala adalah kondisi magis di mana semakin tinggi Anda mendaki (semakin banyak Anda memproduksi), semakin sedikit energi (biaya rata-rata) yang Anda butuhkan untuk setiap langkah tambahan.</em></p>
+            </div>
+
+            <h3>Mengapa Keajaiban Ini Terjadi?</h3>
+            <p>Bayangkan Anda tidak lagi mendaki sendirian, tapi membawa pasukan dan peralatan berat. Ini bukan beban, melainkan keuntungan!</p>
+            <ul>
+                <li><strong>Pembelian Massal (Grosir):</strong> Alih-alih membeli satu tali panjat, Anda membeli satu kontainer tali. Pemasok memberi Anda diskon besar. Biaya bahan baku per unit turun drastis.</li>
+                <li><strong>Spesialisasi (Keahlian):</strong> Dulu Anda yang memasak, melayani, dan mencuci piring. Sekarang, Anda punya koki ahli yang bisa memasak 10x lebih cepat dari Anda. Pekerjaan menjadi super efisien.</li>
+                <li><strong>Mesin Canggih (Teknologi):</strong> Anda mengganti cangkul dengan traktor raksasa. Investasi awal mahal, tapi traktor itu bisa mengerjakan lahan luas dalam hitungan jam, membuat biaya per hektar menjadi sangat murah.</li>
+            </ul>
+
+            <div class="interactive-box" style="text-align: center;">
+                <h3>Simulasi Interaktif: Keajaiban Produksi Massal</h3>
+                <p>Klik tombol di bawah untuk menambah unit produksi (pabrik kecil) dan lihat bagaimana "Biaya Rata-rata per Unit" menurun secara ajaib!</p>
+                
+                <div id="scale-demo-container">
+                    <div class="factory-unit"><i class="fas fa-industry"></i>⚙️</div>
+                </div>
+                <br>
+                <button id="add-unit-btn" class="btn-adventure">Tambah Produksi (+)</button>
+                <button id="reset-unit-btn" class="btn-adventure" style="background-color: var(--danger-color);">Reset</button>
+                
+                <p id="cost-display" style="margin-top: 20px; color: var(--success-color);">
+                    Total Unit: 1 | Biaya Rata-rata per Unit: Rp 100.000 (Mahal!)
+                </p>
+            </div>
+
+            <h3>Dua Jalur Pendakian: Internal & Eksternal</h3>
+            <p>Keuntungan ini bisa datang dari dalam atau luar kelompok pendakian Anda:</p>
+            <p><strong>1. Ekonomis Internal (Kekuatan Anda Sendiri):</strong> Ini adalah efisiensi yang Anda ciptakan sendiri di dalam perusahaan. Manajemen yang lebih baik, mesin yang lebih cepat, atau riset internal yang menghasilkan cara kerja baru.</p>
+            <p><strong>2. Ekonomis Eksternal (Bantuan Lingkungan):</strong> Ini adalah bantuan dari lingkungan sekitar. Misalnya, pemerintah membangun jalan tol mulus langsung ke pintu pabrik Anda (transportasi lebih murah), atau banyak sekolah di sekitar Anda yang meluluskan tenaga ahli siap pakai.</p>
+        </section>
+
+        <section class="blog-section">
+            <h2>Bab 2: Jebakan Puncak & Zona Bahaya (Diseconomies of Scale)</h2>
+
+            <figure class="content-image">
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80" alt="Kerumitan dan kekacauan">
+                <figcaption>Gambar 2: Terlalu besar bisa berarti terlalu rumit. Tali-temali mulai kusut.</figcaption>
+            </figure>
+
+            <p>Anda terus mendaki, terbuai oleh efisiensi. Anda menjadi raksasa. Tapi tiba-tiba, di ketinggian tertentu, udara menipis. Langkah kaki kembali terasa berat. Biaya mulai merangkak naik lagi.</p>
+            <p>Selamat datang di zona bahaya: <strong>Disekonomis Skala</strong>. Ini adalah mimpi buruk di mana menjadi lebih besar justru membuat Anda lebih lambat dan lebih mahal.</p>
+
+            <div class="interactive-box" style="border-left-color: var(--danger-color);">
+                <h3>Definisi Sang Petualang:</h3>
+                <p><em>Disekonomis Skala adalah titik di mana organisasi menjadi terlalu besar dan gemuk, sehingga biaya rata-rata per unit justru meningkat karena kekacauan, birokrasi, dan hilangnya kendali.</em></p>
+            </div>
+
+            <h3>Apa yang Menyebabkan Bencana Ini?</h3>
+            <p>Bayangkan tim pendakian Anda sekarang berjumlah 10.000 orang. Apa yang terjadi?</p>
+            <ul>
+                <li><strong>Kekacauan Komunikasi (The Telephone Game):</strong> Pesan dari CEO di puncak gunung sering kali terdistorsi saat sampai ke staf di basecamp. Kesalahpahaman merajalela.</li>
+                <li><strong>Birokrasi & "Pita Merah":</strong> Untuk mengambil satu keputusan sederhana (seperti membeli pena baru), perlu 5 lapis persetujuan manajer. Segalanya menjadi lambat.</li>
+                <li><strong>Hilangnya Motivasi (Gear dalam Mesin):</strong> Karyawan merasa hanya menjadi sekrup kecil dalam mesin raksasa. Mereka kehilangan semangat dan rasa kepemilikan, produktivitas pun menurun.</li>
+                <li><strong>Politik Kantor:</strong> Energi habis bukan untuk melayani pelanggan, tapi untuk sikut-sikutan antar manajer yang berebut kekuasaan di organisasi yang terlalu gemuk.</li>
+            </ul>
+
+            <div class="interactive-box" style="text-align: center; border-left-color: var(--danger-color);">
+                <h3>Simulasi Interaktif: Visualisasi Kekacauan Birokrasi</h3>
+                <p>Tambahkan "Manajer" (titik merah). Lihat bagaimana jalur komunikasi (garis) meningkat secara eksponensial, menciptakan jaring yang kusut dan rumit!</p>
+                <canvas id="chaos-canvas" width="600" height="300"></canvas>
+                <button id="add-node-btn" class="btn-adventure" style="background-color: var(--danger-color);">Tambah Manajer (+ Kekacauan)</button>
+                <p id="chaos-stats">Jumlah Manajer: 3 | Jalur Komunikasi: 3 (Masih Terkendali)</p>
+            </div>
+        </section>
+
+        <section class="blog-section">
+            <h2>Kesimpulan: Menemukan "Titik Manis" di Gunung Skala</h2>
+            <p>Petualangan di Gunung Skala mengajarkan kita satu hal penting: <strong>Lebih besar tidak selalu lebih baik selamanya.</strong></p>
+            <p>Tujuan utamanya bukanlah menjadi yang terbesar tanpa batas, melainkan menemukan "Skala Efisien Minimum"—sebuah dataran tinggi di gunung di mana Anda cukup besar untuk menikmati efisiensi maksimal (ekonomis skala), namun belum terlalu besar hingga terperosok dalam kekacauan birokrasi (disekonomis skala).</p>
+            <p>Sebagai pemimpin bisnis (atau pemimpin pendakian), tugas Anda adalah terus memantau altimeter biaya Anda. Nikmati pendakian saat efisiensi meningkat, tetapi waspadalah saat udara mulai menipis dan komunikasi mulai kusut. Itulah seni menaklukkan Gunung Skala.</p>
+            <p><em>Selamat berpetualang!</em></p>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    // 1. Scroll Animation
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.custom-article-wrapper section.blog-section').forEach(section => {
+        if(!section.classList.contains('visible')){ observer.observe(section); }
+    });
+
+    // 2. Economies Scale Demo
+    let unitCount = 1;
+    const container = document.getElementById('scale-demo-container');
+    const costDisplay = document.getElementById('cost-display');
+    const addBtn = document.getElementById('add-unit-btn');
+    const resetBtn = document.getElementById('reset-unit-btn');
+
+    function calculateFakeCost(units) {
+        let fixedCost = 80000;
+        let variableCostPerUnit = 20000;
+        let totalCost = fixedCost + (variableCostPerUnit * units);
+        return Math.round(totalCost / units);
+    }
+
+    if(addBtn) {
+        addBtn.addEventListener('click', () => {
+            if (unitCount < 10) {
+                unitCount++;
+                const newUnit = document.createElement('div');
+                newUnit.className = 'factory-unit';
+                newUnit.innerHTML = '⚙️';
+                let size = 50 + (unitCount * 2);
+                newUnit.style.width = `${size}px`;
+                newUnit.style.height = `${size}px`;
+                container.appendChild(newUnit);
+                
+                let avgCost = calculateFakeCost(unitCount);
+                costDisplay.innerHTML = `Total Unit: ${unitCount} | Biaya Rata-rata: Rp ${avgCost.toLocaleString('id-ID')} (Hemat!)`;
+            } else {
+                costDisplay.innerHTML = `Kapasitas Penuh! Efisiensi Maksimal.`;
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            unitCount = 1;
+            container.innerHTML = '<div class="factory-unit" style="width:50px; height:50px;">⚙️</div>';
+            costDisplay.innerHTML = `Total Unit: 1 | Biaya Rata-rata: Rp 100.000 (Mahal!)`;
+        });
+    }
+
+    // 3. Diseconomies Canvas Demo
+    const canvas = document.getElementById('chaos-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        const addNodeBtn = document.getElementById('add-node-btn');
+        const chaosStats = document.getElementById('chaos-stats');
+        let nodes = [];
+        const maxNodes = 15;
+
+        // Init nodes
+        for(let i=0; i<3; i++) addNode();
+        draw();
+
+        function addNode() {
+            if(nodes.length >= maxNodes) return;
+            nodes.push({
+                x: Math.random() * (canvas.width - 40) + 20,
+                y: Math.random() * (canvas.height - 40) + 20,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5
+            });
+            updateChaosStats();
+        }
+
+        if(addNodeBtn) {
+            addNodeBtn.addEventListener('click', () => { addNode(); });
+        }
+
+        function updateChaosStats(){
+            let n = nodes.length;
+            let connections = (n * (n - 1)) / 2;
+            let status = "(Aman)";
+            if(n > 6) status = "(Rumit...)";
+            if(n > 10) status = "(CHAOS!)";
+            chaosStats.innerHTML = `Manajer: ${n} | Jalur Komunikasi: ${connections} <strong>${status}</strong>`;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(192, 57, 43, 0.3)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                }
+            }
+            ctx.stroke();
+
+            for (let i = 0; i < nodes.length; i++) {
+                ctx.beginPath();
+                ctx.arc(nodes[i].x, nodes[i].y, 6, 0, Math.PI * 2);
+                ctx.fillStyle = '#c0392b';
+                ctx.fill();
+                
+                nodes[i].x += nodes[i].vx;
+                nodes[i].y += nodes[i].vy;
+                if(nodes[i].x < 5 || nodes[i].x > canvas.width - 5) nodes[i].vx *= -1;
+                if(nodes[i].y < 5 || nodes[i].y > canvas.height - 5) nodes[i].vy *= -1;
+            }
+            requestAnimationFrame(draw);
+        }
+    }
+</script>
