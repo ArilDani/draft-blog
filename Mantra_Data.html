@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akademi Sihir Data: Tingkat Master</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+
+<style>
+    /* --- TEMA VISUAL: MYSTIC PURPLE & DATA BLUE --- */
+    :root {
+        --primary-color: #4a148c; /* Ungu Gelap (Sihir Kuno) */
+        --secondary-color: #00e5ff; /* Cyan Terang (Energi Data) */
+        --accent-color: #ff007f;   /* Pink (Highlight) */
+        --bg-color: #f3e5f5;
+        --text-color: #212121;
+        --editor-bg: #1a1a2e;
+        --editor-text: #e0e0e0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: var(--bg-color);
+        padding: 20px;
+        line-height: 1.8;
+        color: var(--text-color);
+    }
+
+    .blog-container {
+        max-width: 950px;
+        margin: auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(74, 20, 140, 0.15);
+    }
+
+    h1 {
+        color: var(--primary-color);
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: var(--primary-color);
+        margin-top: 60px;
+        border-left: 5px solid var(--accent-color);
+        padding-left: 15px;
+        font-size: 1.8em;
+    }
+
+    h3 {
+        color: #6a1b9a;
+        margin-top: 30px;
+    }
+
+    p { margin-bottom: 20px; }
+
+    /* HEADER IMAGE */
+    .hero-banner {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 30px;
+    }
+
+
+
+    /* CODE EDITOR STYLE */
+    .code-playground {
+        background: var(--editor-bg);
+        border-radius: 12px;
+        margin: 30px 0;
+        overflow: hidden;
+        border: 1px solid #333;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .editor-header {
+        background: #0f0f1a;
+        color: var(--secondary-color);
+        padding: 12px 20px;
+        font-family: 'Source Code Pro', monospace;
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    textarea.code-block {
+        width: 100%;
+        min-height: 200px;
+        background: var(--editor-bg);
+        color: var(--editor-text);
+        border: none;
+        padding: 20px;
+        font-family: 'Source Code Pro', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        resize: vertical;
+        outline: none;
+    }
+
+    .run-btn-container {
+        padding: 10px 20px;
+        background: #0f0f1a;
+        text-align: right;
+    }
+
+    .run-btn {
+        background: linear-gradient(90deg, #7b1fa2, #4a148c);
+        color: white;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 4px 10px rgba(123, 31, 162, 0.4);
+        transition: 0.3s;
+    }
+
+    .run-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(123, 31, 162, 0.6);
+    }
+
+    .run-btn:disabled {
+        background: #555;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    .output-console {
+        background: #000;
+        color: #00e5ff;
+        padding: 20px;
+        font-family: 'Source Code Pro', monospace;
+        border-top: 1px solid #333;
+        white-space: pre-wrap; /* KUNCI AGAR HASIL KE BAWAH */
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    /* LOADING & NOTIFICATION */
+    #loading-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(26, 26, 46, 0.95);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+    .spinner {
+        width: 50px; height: 50px;
+        border: 5px solid #333;
+        border-top: 5px solid var(--secondary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .concept-box {
+        background: #e1f5fe;
+        border-left: 5px solid #0288d1;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 0 10px 10px 0;
+    }
+    .concept-title { font-weight: bold; color: #01579b; display: block; margin-bottom: 5px; }
+
+</style>
+</head>
+
+<body>
+
+<div id="loading-overlay">
+    <div class="spinner"></div>
+    <h2>Sedang Membuka Gerbang Dimensi...</h2>
+    <p>Mengunduh Kitab Sihir: NumPy & Pandas (Mohon tunggu ±10 detik)</p>
+</div>
+
+<div class="blog-container">
+
+    <img
+        class="hero-banner"
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgedbMqTLcbhyphenhyphenLjZLgZ1LSCxjkghNtg3YR3eMGg8bTp-ykvsfYmyRynf2wTXmrC12Cy14686OeMBP6-1COj45fLFlVNKiIllI-2IKuq9RJgEvqLLekU3o7AFj72UyQAcyeN__JmIAu0NcAppCbCvnvwrUUfnvOd-d4cR-pi_PP7htED6Pqzj_pmPm21mUY/s1200/mantra%20data.png"
+        alt="Akademi Sihir Data"
+    />
+
+
+    <p>
+        Selamat datang kembali, Penyihir. Jika sebelumnya kita hanya bermain-main dengan mantra dasar, hari ini kita akan masuk ke <strong>Menara Pengetahuan Utama</strong>.
+    </p>
+    <p>
+        Di dunia manusia (profesional), materi ini mencakup <strong>80% pekerjaan seorang Data Scientist</strong>. 
+        Mulai dari membedah matriks energi (NumPy), memperbaiki gulungan sejarah yang rusak (Pandas Cleaning), hingga melihat pola takdir (Grouping).
+    </p>
+
+    <h2>BAB I: Sihir Matriks (NumPy)</h2>
+    <p>
+        Sihir Python biasa (List) terlalu lambat untuk jutaan data. Kita butuh <strong>NumPy</strong>. 
+        NumPy bekerja dengan "Grid Energi" atau Array.
+    </p>
+
+    <div class="concept-box">
+        <span class="concept-title">📘 Konsep Penting: Dimensi (Shape)</span>
+        Bayangkan <strong>1D Array</strong> sebagai satu barisan pasukan.<br>
+        Bayangkan <strong>2D Array</strong> sebagai pasukan yang berbaris dalam bentuk kotak (Baris x Kolom).
+    </div>
+
+    <h3>1. Membuat & Membedah Grid Energi</h3>
+    <p>Mantra ini mengajarkanmu cara membuat matriks 2 Dimensi dan mengambil isinya.</p>
+
+    <div class="code-playground">
+        <div class="editor-header">📜 Mantra: NumPy Dasar</div>
+        <textarea class="code-block">
+        import numpy as np
+
+        # Membuat Grid 2 Dimensi (3 Baris, 3 Kolom)
+        # Anggap ini peta harta karun grid 3x3
+        peta_sihir = np.array([
+            [10, 20, 30],
+            [40, 50, 60],
+            [70, 80, 90]
+        ])
+
+        print("--- 🔮 Wujud Peta Sihir ---")
+        print(peta_sihir)
+
+        print("\n--- 📏 Ukuran Dimensi (Shape) ---")
+        print(f"Bentuk: {peta_sihir.shape} -> (Baris, Kolom)")
+
+        print("\n--- 🎯 Slicing (Membidik Target) ---")
+        # Mengambil Baris ke-0 (Paling atas)
+        print("Baris Atas:", peta_sihir[0])
+
+        # Mengambil Baris ke-1, Kolom ke-2 (Ingat index mulai dari 0)
+        print("Angka Spesifik (Baris 1, Kolom 2):", peta_sihir[1, 2])
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">⚡ Eksekusi Mantra</button>
+        </div>
+        <div class="output-console"></div>
+    </div>
+
+    <h3>2. Operasi Matematika Kilat</h3>
+    <p>Di NumPy, kita tidak perlu melakukan loop satu per satu. Kita bisa melipatgandakan kekuatan seluruh pasukan sekaligus!</p>
+
+    <div class="code-playground">
+        <div class="editor-header">📜 Mantra: Kekuatan Statistik</div>
+        <textarea class="code-block">
+import numpy as np
+
+data_kekuatan = np.array([5, 10, 15, 20, 25])
+
+print("Kekuatan Awal:", data_kekuatan)
+
+# MAGIC: Kalikan semua dengan 2 sekaligus!
+print("Buff Kekuatan (x2):", data_kekuatan * 2)
+
+# Statistik Dasar
+print("\n--- 📊 Analisis Kekuatan ---")
+print("Kekuatan Tertinggi (Max):", np.max(data_kekuatan))
+print("Kekuatan Terendah (Min):", np.min(data_kekuatan))
+print("Rata-rata Kekuatan (Mean):", np.mean(data_kekuatan))
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">⚡ Hitung Cepat</button>
+        </div>
+        <div class="output-console"></div>
+    </div>
+
+
+    <h2>BAB II: Gulungan Takdir (Pandas)</h2>
+    <p>
+        Ini adalah senjata utama Data Scientist. <strong>Pandas</strong> mengubah data mentah menjadi <strong>DataFrame</strong> (Tabel Pintar).
+    </p>
+
+    <h3>1. Membuat & Memeriksa Gulungan (DataFrame)</h3>
+    <p>Mari kita buat catatan data siswa sekolah sihir.</p>
+
+    <div class="code-playground">
+        <div class="editor-header">📜 Mantra: Penciptaan Tabel</div>
+        <textarea class="code-block">
+import pandas as pd
+
+# Data Mentah (Dictionary)
+data_mentah = {
+    "Nama": ["Harry", "Ron", "Hermione", "Draco", "Luna"],
+    "Asrama": ["Gryffindor", "Gryffindor", "Gryffindor", "Slytherin", "Ravenclaw"],
+    "Nilai_Mantra": [85, 70, 100, 90, 88],
+    "Nilai_Ramuan": [80, 65, 95, 92, 85]
+}
+
+# Mengubah menjadi DataFrame
+df = pd.DataFrame(data_mentah)
+
+print("--- 📜 GULUNGAN NILAI SISWA ---")
+print(df)
+
+print("\n--- ℹ️ Info Struktur Gulungan ---")
+# Melihat tipe data setiap kolom
+df.info()
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">📖 Buka Gulungan</button>
+        </div>
+        <div class="output-console"></div>
+    </div>
+
+    <h3>2. Sihir Pembersih (Data Cleaning)</h3>
+    <p>
+        Data di dunia nyata seringkali "kotor". Ada yang kosong (Hilang/NaN). 
+        Tugas kita adalah menambal lubang tersebut atau membuang baris yang rusak.
+    </p>
+    <div class="concept-box">
+        <span class="concept-title">🧹 Mantra Pembersih:</span>
+        1. <code>isna()</code>: Melacak data yang hilang.<br>
+        2. <code>fillna()</code>: Mengisi lubang dengan nilai lain (misal: 0).<br>
+        3. <code>dropna()</code>: Membakar/membuang baris yang rusak.
+    </div>
+
+    <div class="code-playground">
+        <div class="editor-header">📜 Mantra: Data Cleaning</div>
+        <textarea class="code-block">
+        import pandas as pd
+        import numpy as np
+
+        # Membuat data yang "Rusak" (ada NaN/Kosong)
+        df_rusak = pd.DataFrame({
+            "Barang": ["Tongkat", "Jubah", "Kuali", "Penyapu"],
+            "Harga": [100, np.nan, 50, np.nan],  # np.nan artinya Kosong
+            "Stok": [10, 5, np.nan, 2]
+        })
+
+print("--- ⚠️ Data Rusak ---")
+print(df_rusak)
+
+print("\n--- 🧹 Mengisi Harga Kosong dengan 0 ---")
+df_tambal = df_rusak.copy()
+df_tambal["Harga"] = df_tambal["Harga"].fillna(0)
+print(df_tambal)
+
+print("\n--- 🔥 Membuang Baris yang Masih Rusak ---")
+# Membuang baris yang masih punya NaN (di kolom Stok)
+df_bersih = df_tambal.dropna()
+print(df_bersih)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">🧹 Bersihkan Data</button>
+        </div>
+        <div class="output-console"></div>
+    </div>
+
+    <h3>3. Filter & Agregasi (Grouping)</h3>
+    <p>
+        Ini adalah teknik <strong>Level Tinggi</strong>. Kita tidak hanya melihat data, tapi mencari wawasan.
+        Contoh: "Berapa rata-rata nilai tiap Asrama?"
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">📜 Mantra: Analisis Kelompok</div>
+        <textarea class="code-block">
+import pandas as pd
+
+# Kita pakai data siswa lagi
+data = {
+    "Nama": ["Harry", "Ron", "Hermione", "Draco", "Crabbe", "Luna"],
+    "Asrama": ["Gryffindor", "Gryffindor", "Gryffindor", "Slytherin", "Slytherin", "Ravenclaw"],
+    "Nilai": [85, 75, 100, 90, 60, 95]
+}
+df = pd.DataFrame(data)
+
+print("--- 🔍 Filter: Mencari Siswa Pintar (Nilai > 80) ---")
+siswa_pintar = df[df["Nilai"] > 80]
+print(siswa_pintar)
+
+print("\n--- 👥 Grouping: Rata-rata Nilai per Asrama ---")
+# Mengelompokkan berdasarkan Asrama, lalu hitung rata-rata Nilainya
+analisis_asrama = df.groupby("Asrama")["Nilai"].mean()
+print(analisis_asrama)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">🔮 Lihat Wawasan</button>
+        </div>
+        <div class="output-console"></div>
+    </div>
+
+
+    <h2>BAB III: Proyeksi Visual (Visualization Logic)</h2>
+    <p>
+        Penyihir hebat tidak hanya membaca angka, tapi melihat gambar. 
+        Karena bola kristal kita berbasis teks, kita akan membuat <strong>Grafik Batang ASCII</strong> otomatis dari data Pandas!
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">📜 Mantra: Proyeksi Grafik</div>
+        <textarea class="code-block">
+import pandas as pd
+
+# Data Penjualan Toko Sihir
+df_toko = pd.DataFrame({
+    "Item": ["Tongkat", "Ramuan", "Buku", "Jubah"],
+    "Terjual": [12, 25, 8, 15]
+})
+
+print("--- 📊 GRAFIK PENJUALAN ---")
+print("Item       | Grafik (1 # = 1 unit)")
+print("-" * 35)
+
+# Loop setiap baris data (iterrow)
+for index, baris in df_toko.iterrows():
+    nama = baris["Item"]
+    jumlah = baris["Terjual"]
+    
+    # Membuat grafik batang dengan karakter '#'
+    grafik = "#" * jumlah
+    
+    # Mencetak dengan format rapi
+    print(f"{nama:10} | {grafik} ({jumlah})")
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">📽️ Proyeksikan</button>
+        </div>
+        <div class="output-console"></div>
+    </div>
+
+    <div class="hero-banner" style="height: 150px; margin-top: 50px;">
+        <div class="hero-text">🎓 MISI SELESAI!</div>
+        <p>Kamu telah menguasai dasar-dasar NumPy dan Pandas.</p>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+
+<script>
+    const loadingOverlay = document.getElementById("loading-overlay");
+    const runButtons = document.querySelectorAll(".run-btn");
+    let pyodideReadyPromise;
+
+    // Matikan tombol saat loading
+    runButtons.forEach(btn => btn.disabled = true);
+
+    async function initPyodide() {
+        try {
+            const pyodide = await loadPyodide();
+            
+            // Memuat Library Data Science
+            await pyodide.loadPackage(["numpy", "pandas"]);
+            
+            return pyodide;
+        } catch (error) {
+            console.error("Gagal memuat Pyodide:", error);
+            alert("Gagal memuat sistem sihir. Coba refresh halaman.");
+        }
+    }
+
+    // Jalankan inisialisasi
+    pyodideReadyPromise = initPyodide().then(pyodide => {
+        // Hilangkan loading screen
+        loadingOverlay.style.display = "none";
+        
+        // Hidupkan tombol
+        runButtons.forEach(btn => btn.disabled = false);
+        return pyodide;
+    });
+
+    async function runPython(button) {
+        const container = button.closest(".code-playground");
+        const code = container.querySelector(".code-block").value;
+        const outputConsole = container.querySelector(".output-console");
+        
+        // Tampilan Loading di Console
+        outputConsole.innerHTML = "<span style='color: #ffd700'>⏳ Sedang meracik mantra...</span>";
+        button.disabled = true;
+
+        try {
+            const pyodide = await pyodideReadyPromise;
+
+            // Setup Capture Output
+            await pyodide.runPython(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+sys.stderr = StringIO()
+            `);
+
+            // Eksekusi Kode User
+            await pyodide.runPython(code);
+
+            // Ambil Output
+            const stdout = pyodide.runPython("sys.stdout.getvalue()");
+            const stderr = pyodide.runPython("sys.stderr.getvalue()");
+
+            if (stderr) {
+                outputConsole.innerHTML = `<span style="color: #ff5252">💥 MANTRA GAGAL (Error):</span>\n${stderr}`;
+            } else {
+                outputConsole.textContent = stdout;
+            }
+
+        } catch (err) {
+            outputConsole.innerHTML = `<span style="color: #ff5252">💥 KESALAHAN FATAL:</span>\n${err.message}`;
+        } finally {
+            button.disabled = false;
+        }
+    }
+</script>
+
+</body>
+</html>

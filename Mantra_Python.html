@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan Sihir Python</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-color: #3776ab;
+        --secondary-color: #ffd343;
+        --bg-color: #f4f9fc;
+        --text-color: #333;
+        --editor-bg: #282c34;
+        --editor-text: #abb2bf;
+        --success-color: #28a745;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: var(--bg-color);
+        padding: 20px;
+        line-height: 1.7;
+        color: var(--text-color);
+    }
+
+    .blog-container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+        color: var(--primary-color);
+    }
+
+    h2 {
+        margin-top: 50px;
+        border-bottom: 3px solid var(--secondary-color);
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    p {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+
+    .intro-image {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+
+
+    .code-playground {
+        background: var(--editor-bg);
+        border-radius: 12px;
+        margin: 25px 0;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .editor-header {
+        background: #21252b;
+        color: #9da5b4;
+        padding: 10px 15px;
+        font-size: 0.9em;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+
+    .editor-header::before {
+        content: "🔴 🟡 🟢";
+        margin-right: 15px;
+        letter-spacing: 3px;
+    }
+
+    textarea.code-block {
+        width: 100%;
+        min-height: 150px;
+        background: var(--editor-bg);
+        color: var(--editor-text);
+        border: none;
+        padding: 20px;
+        font-family: 'Source Code Pro', monospace;
+        font-size: 1.05em;
+        resize: vertical;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    .run-btn-container {
+        padding: 10px 15px;
+        background: #21252b;
+        text-align: right;
+        border-top: 1px solid #3e4451;
+    }
+
+    .run-btn {
+        background: var(--success-color);
+        color: white;
+        border: none;
+        padding: 8px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        transition: transform 0.2s, background 0.2s;
+    }
+
+    .run-btn:hover {
+        transform: scale(1.05);
+        background: #218838;
+    }
+
+    .output-console {
+        background: #1e1e1e;
+        padding: 15px;
+        font-family: 'Source Code Pro', monospace;
+        border-top: 2px solid #3e4451;
+        min-height: 60px;
+    }
+
+    .output-label {
+        color: var(--secondary-color);
+        font-size: 0.8em;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* PERBAIKAN UTAMA DI SINI AGAR HASIL KE BAWAH */
+    .output-text {
+        color: #98c379;
+        white-space: pre-wrap; /* Ini membuat baris baru (\n) terbaca */
+        word-wrap: break-word;
+        display: block;
+    }
+
+    .story-note {
+        background-color: #fff9db;
+        border-left: 5px solid #ffd343;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+    }
+
+    @media (max-width:600px){
+        h1 {font-size:1.8em;}
+        .blog-container {padding: 15px;}
+    }
+
+    /* --- CTA Buttons --- */
+        .cta-container {
+            margin-top: 50px;
+            text-align: center;
+            padding: 30px;
+            background: #eef6fc;
+            border-radius: 15px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-primary {
+            background: linear-gradient(45deg, var(--primary-color), #5a9bd5);
+            color: white;
+            box-shadow: 0 5px 15px rgba(55, 118, 171, 0.4);
+        }
+
+        .cta-secondary {
+            background: linear-gradient(45deg, var(--secondary-color), #ffe073);
+            color: #333;
+            box-shadow: 0 5px 15px rgba(255, 211, 67, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .blog-container { padding: 15px; }
+            .cta-button { display: block; width: 80%; margin: 10px auto; }
+        }
+</style>
+</head>
+
+<body>
+
+<div class="blog-container">
+
+    <img 
+        class="intro-image"
+        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizmwEcJwnSzG2Mi-Q5DmSIdDeQRxEsZtBdaFW_-yeWwR7_f5_2NLuJWAGF2aemoukVOnHX0gbQTdT0KiReAwC-3G1mNrG7v_Ov756s5nxyO6cOnDTwhdxBYem0sypdQkorPqQMwNdZmmfCo4POaUUU3rYVKqR54PhgSmXvPOmnNvlhwVmIRbWYNyNIII4/s1200/mantra%20python.png"
+        alt="Mantra Python"
+    />
+    </div>
+
+    <h1>Selamat Datang, Calon Penyihir Kode ✨</h1>
+
+    <p>
+        Halo! Bayangkan kamu masuk ke sekolah sihir. Tapi, tongkat sihirmu adalah keyboard komputer! 
+        Dengan tongkat ini, kamu bisa menyuruh komputer melakukan apa saja: menyapa teman, menghitung bintang, bahkan menciptakan duniamu sendiri.
+    </p>
+
+    <p>
+        Sihir ini bernama <strong>Python</strong>. Tenang saja, Python itu penyihir yang baik hati. 
+        Bahasanya mudah dimengerti, bahkan oleh anak kecil sekalipun. 
+        Siap menerima tongkat pertamamu? Ayo mulai! 🧙‍♂️
+    </p>
+
+    <h2>Bab 1: Aturan Sihir (Syntax)</h2>
+    <p>
+        Setiap mantra harus ditulis dengan hati-hati. Python itu sangat teliti.
+        Dia sangat peduli dengan kerapian.
+    </p>
+    <div class="story-note">
+        💡 <strong>Tips Penyihir:</strong> 
+        Python sensitif dengan spasi di awal baris (indentasi). 
+        Jika spasinya salah, mantranya bisa meledak (error)! Gunakan tombol TAB untuk membuat spasi ajaib.
+    </div>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #1</div>
+        <textarea class="code-block">
+# Tanda pagar ini adalah jubah gaib.
+# Python tidak akan membacanya.
+
+print("Halo Dunia Sihir!")
+print("Saya siap belajar.")
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Rapalkan Mantra</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 2: Kotak Ajaib (Variabel)</h2>
+
+    <p>
+        Seorang penyihir butuh tempat untuk menyimpan ramuan dan barang-barangnya.
+        Di Python, kita punya <strong>Kotak Ajaib</strong> yang disebut <strong>Variabel</strong>.
+    </p>
+    <p>
+        Kamu bisa memberi label nama pada kotaknya, lalu isi dengan apa saja!
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #2</div>
+        <textarea class="code-block">
+# Kita siapkan kotaknya
+nama_penyihir = "Harry"
+jumlah_tongkat = 1
+
+# Mari kita lihat isinya
+print(nama_penyihir)
+print(jumlah_tongkat)
+
+# Kita ganti isinya
+nama_penyihir = "Hermione"
+print(nama_penyihir)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Buka Kotak</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+    <h2>Bab 3: Jenis Energi (Tipe Data)</h2>
+    <p>
+        Dunia sihir memiliki berbagai jenis energi. Ada energi angka, energi teks, dan energi kebenaran.
+        Python perlu tahu energi apa yang sedang kamu pegang.
+    </p>
+    <div class="story-note">
+        🔮 <strong>Jenis Energi:</strong><br>
+        1. <strong>Integer:</strong> Angka bulat (contoh: 10)<br>
+        2. <strong>Float:</strong> Angka pecahan/koma (contoh: 145.5)<br>
+        3. <strong>String:</strong> Teks atau mantra kata-kata (diapit tanda kutip)<br>
+        4. <strong>Boolean:</strong> Benar atau Salah (True/False)
+    </div>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #3</div>
+        <textarea class="code-block">
+umur = 10           # Angka Bulat
+tinggi = 145.5      # Angka Koma
+nama = "Budi"       # Teks
+suka_sihir = True   # Benar/Salah
+
+print(type(umur))
+print(type(tinggi))
+print(type(nama))
+print(type(suka_sihir))
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Cek Energi</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 4: Kalkulator Ajaib (Operator)</h2>
+    <p>
+        Tongkat Python juga bisa digunakan untuk berhitung super cepat!
+        Tambah, kurang, kali, bagi? Semuanya mudah.
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #4</div>
+        <textarea class="code-block">
+koin_emas = 10
+koin_perak = 3
+
+print("Penjumlahan:", koin_emas + koin_perak)
+print("Pengurangan:", koin_emas - koin_perak)
+print("Perkalian:", koin_emas * koin_perak)
+print("Pembagian:", koin_emas / koin_perak)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Hitung Cepat</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+    <h2>Bab 5: Buku Resep Mantra (Function)</h2>
+
+    <p>
+        Bayangkan kamu punya mantra penyembuh yang panjang.
+        Daripada menulis ulang mantranya setiap kali ada yang terluka,
+        kita simpan saja dalam <strong>Buku Resep</strong> (Function).
+    </p>
+    <p>
+        Cukup panggil judul resepnya, mantranya langsung bekerja!
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #5</div>
+        <textarea class="code-block">
+# Membuat resep mantra sapaan
+def mantra_sapa(target):
+    print("✨ Wingardium Leviosa kepada", target)
+    print("Semoga harimu ajaib!")
+
+# Memanggil mantranya
+mantra_sapa("Ron")
+print("---")
+mantra_sapa("Neville")
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Panggil Resep</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 6: Sihir Pengambil Keputusan (If/Else)</h2>
+    <p>
+        Penyihir cerdas harus bisa mengambil keputusan.
+        "Jika ada naga, lari. Jika tidak, jalan santai."
+        Python menggunakan kata kunci <code>if</code> (jika) untuk berpikir.
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #6</div>
+        <textarea class="code-block">
+nilai_sihir = 85
+
+if nilai_sihir >= 90:
+    print("Selamat! Kamu Penyihir Agung (Nilai A)")
+elif nilai_sihir >= 75:
+    print("Bagus! Kamu Penyihir Senior (Nilai B)")
+else:
+    print("Kamu harus berlatih lagi, Penyihir Muda.")
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Nilai Keputusan</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+
+    <h2>Bab 7: Mantra Pengganda (Loop For)</h2>
+
+    <p>
+        Pernah dihukum guru menulis "Saya tidak akan nakal" 100 kali?
+        Penyihir Python tidak perlu menulis manual.
+        Kita gunakan sihir <strong>Loop</strong> untuk mengulang perintah secara otomatis!
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #7</div>
+        <textarea class="code-block">
+# Mengulang mantra 5 kali
+for urutan in range(1, 6):
+    print("Mantra pelipat ganda ke-", urutan)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Gandakan!</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 8: Mantra Tanpa Henti (Loop While)</h2>
+    <p>
+        Kadang kita ingin mantra terus berjalan <strong>selama</strong> kita masih punya energi.
+        Hati-hati, jika energimu tidak habis-habis, mantranya tidak akan berhenti selamanya!
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #8</div>
+        <textarea class="code-block">
+mana_energi = 3
+
+while mana_energi > 0:
+    print("🔥 Bola Api dilontarkan! Sisa energi:", mana_energi)
+    mana_energi = mana_energi - 1
+
+print("Energi habis, perlu istirahat.")
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Lontarkan!</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+    <h2>Bab 9: Tas Ransel Ajaib (List)</h2>
+
+    <p>
+        Kalau <em>Variabel</em> adalah kotak kecil, <strong>List</strong> adalah Tas Ransel Ajaib.
+        Tas ini bisa menampung BANYAK barang sekaligus secara berurutan.
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #9</div>
+        <textarea class="code-block">
+# Isi tas ransel kita
+tas_ransel = ["Buku Mantra", "Tongkat", "Jubah"]
+
+# Menambahkan barang baru
+tas_ransel.append("Ramuan Obat")
+
+# Melihat semua isi tas satu per satu
+print("Isi tasku saat ini:")
+for barang in tas_ransel:
+    print("- " + barang)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Cek Tas</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 10: Peti Terkunci & Koleksi Unik (Tuple & Set)</h2>
+    <p>
+        <strong>Tuple</strong> itu seperti peti kaca yang dikunci. Isinya bisa dilihat, tapi tidak bisa diubah atau diganti.
+        <br>
+        <strong>Set</strong> itu seperti koleksi stiker. Tidak boleh ada stiker yang sama (kembar) di dalamnya.
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #10</div>
+        <textarea class="code-block">
+# Tuple (Tidak bisa diubah)
+koordinat_rahasia = (10, 25)
+print("Koordinat:", koordinat_rahasia)
+
+# Set (Menghapus yang kembar otomatis)
+koleksi_permata = {"Merah", "Biru", "Merah", "Hijau"}
+print("Koleksi Permata:", koleksi_permata)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Lihat Koleksi</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 11: Buku Telepon Gaib (Dictionary)</h2>
+    <p>
+        Ingin mencari arti sebuah kata? Atau mencari pemilik tongkat sihir?
+        Gunakan <strong>Dictionary</strong>. Kita menyimpan data berpasangan: 
+        <strong>Kunci</strong> (Key) dan <strong>Isinya</strong> (Value).
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #11</div>
+        <textarea class="code-block">
+# Data siswa sihir
+data_siswa = {
+    "nama": "Rina",
+    "asrama": "Gryffindor",
+    "peliharaan": "Burung Hantu"
+}
+
+print("Nama Siswa:", data_siswa["nama"])
+print("Asrama:", data_siswa["asrama"])
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Cari Data</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 12: Cetakan Golem (Class)</h2>
+
+    <p>
+        Penyihir tingkat lanjut bisa menciptakan makhluk hidup buatan!
+        <strong>Class</strong> adalah cetakan atau resep utamanya.
+        Dari satu cetakan ini, kita bisa membuat ratusan Golem (Object) yang berbeda namanya.
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #12</div>
+        <textarea class="code-block">
+# Membuat cetakan Golem
+class Golem:
+    def __init__(self, nama, elemen):
+        self.nama = nama
+        self.elemen = elemen
+
+    def serang(self):
+        print(self.nama, "menyerang dengan", self.elemen, "!")
+
+# Menciptakan Golem dari cetakan
+golem1 = Golem("Raksasa Batu", "Tanah")
+golem2 = Golem("Raksasa Magma", "Api")
+
+golem1.serang()
+golem2.serang()
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Hidupkan Golem</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 13: Tameng Pelindung (Try/Except)</h2>
+    <p>
+        Terkadang mantra bisa gagal dan meledak.
+        Untuk melindungimu dari ledakan (Error), gunakan tameng sihir bernama <strong>Try</strong> dan <strong>Except</strong>.
+        Jika gagal, tameng akan menangkapnya!
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #13</div>
+        <textarea class="code-block">
+try:
+    # Mencoba mengubah teks 'abc' menjadi angka
+    # Ini pasti gagal karena huruf bukan angka
+    angka = int("abc") 
+    print("Berhasil diubah!")
+except:
+    # Tameng menangkap ledakan
+    print("🛡️ Tameng aktif! Itu bukan angka, Tuan.")
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Uji Tameng</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+
+    <h2>Bab 14: Memanggil Bantuan (Import)</h2>
+    <p>
+        Penyihir hebat tidak bekerja sendirian.
+        Kita bisa memanggil bantuan dari penyihir lain yang sudah membuat alat canggih.
+        Di Python, kita menggunakan mantra <strong>import</strong>.
+    </p>
+
+    <div class="code-playground">
+        <div class="editor-header">Gulungan Mantra #14</div>
+        <textarea class="code-block">
+import random
+
+print("Melempar dadu nasib...")
+angka_dadu = random.randint(1, 6)
+print("Kamu mendapatkan angka:", angka_dadu)
+        </textarea>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runPython(this)">✨ Panggil Bantuan</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Efek Mantra:</span>
+            <span class="output-text"></span>
+        </div>
+    </div>
+
+    <h2>🎉 Selamat! Kamu Sudah Lulus Akademi Dasar!</h2>
+
+    <p>
+        Luar biasa! Kamu telah mempelajari 14 mantra dasar Python.
+        Sekarang kamu sudah memegang kunci untuk menciptakan dunia digitalmu sendiri.
+        Teruslah berlatih, Penyihir Muda! 🎓✨
+    </p>
+
+    <div class="cta-container">
+        <h3>Ingin Menjadi Lebih Jago Lagi?</h3>
+        <p>Jangan berhenti di sini. Ambil tongkat sihirmu dan pelajari mantra yang lebih kuat!</p>
+        
+        <a href="https://docs.python.org/3.11/tutorial/index.html" class="cta-button cta-primary">📘 Dapatkan Modul Python Lengkap</a>
+        
+        <a href="https://arutiaa.blogspot.com/2026/01/akademi-sihir-data-tingkat-master-tema.html" class="cta-button cta-secondary">📊 Baca: Python untuk Analisis Data</a>
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+
+<script>
+    // Memuat Pyodide sekali saja saat halaman dibuka
+    let pyodideReady = loadPyodide();
+
+    async function runPython(button) {
+        const playground = button.closest(".code-playground");
+        const code = playground.querySelector(".code-block").value;
+        const outputEl = playground.querySelector(".output-text");
+
+        // Tanda sedang loading
+        outputEl.textContent = "⏳ Sedang merapalkan mantra...\n";
+        
+        try {
+            const pyodide = await pyodideReady;
+
+            // Setup agar output print() masuk ke variabel, bukan ke console browser
+            // Menggunakan backtick (`) untuk string multiline di JS agar aman
+            await pyodide.runPython(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+sys.stderr = StringIO()
+            `);
+
+            // Menjalankan kode user
+            await pyodide.runPython(code);
+
+            // Mengambil hasil print()
+            const stdout = pyodide.runPython("sys.stdout.getvalue()");
+            const stderr = pyodide.runPython("sys.stderr.getvalue()");
+
+            if (stderr) {
+                outputEl.textContent = "💥 Mantra Gagal (Error):\n" + explainError(stderr);
+                outputEl.style.color = "#e06c75"; // Warna merah muda untuk error
+            } else if (stdout === "") {
+                outputEl.textContent = "⚠️ Mantra berhasil, tapi tidak ada yang muncul.\n(Gunakan print() untuk melihat hasil)";
+                outputEl.style.color = "#d19a66"; // Warna oranye
+            } else {
+                outputEl.textContent = stdout; 
+                outputEl.style.color = "#98c379"; // Warna hijau sukses
+            }
+
+        } catch (err) {
+            outputEl.textContent = "💥 Kesalahan Fatal:\n" + err.message;
+            outputEl.style.color = "#e06c75";
+        }
+    }
+</script>
+
+<script>
+    // Fungsi untuk menerjemahkan bahasa error Python ke bahasa manusia
+    function explainError(errorText) {
+        if (errorText.includes("NameError")) {
+            return errorText + "\n📌 Artinya: Kamu memanggil nama kotak/variabel yang belum dibuat.";
+        }
+        if (errorText.includes("SyntaxError")) {
+            return errorText + "\n📌 Artinya: Ada kesalahan penulisan mantra (kurung kurang, lupa titik dua, dll).";
+        }
+        if (errorText.includes("TypeError")) {
+            return errorText + "\n📌 Artinya: Jenis energinya tidak cocok (misal: menjumlahkan Angka dengan Teks).";
+        }
+        if (errorText.includes("ValueError")) {
+            return errorText + "\n📌 Artinya: Nilai tidak bisa diubah ke bentuk yang diminta.";
+        }
+        if (errorText.includes("IndentationError")) {
+            return errorText + "\n📌 Artinya: Masalah spasi! Pastikan baris yang menjorok ke dalam lurus dan rapi.";
+        }
+
+        return errorText + "\n📌 Periksa kembali ejaan mantramu.";
+    }
+</script>
+
+</body>
+</html>

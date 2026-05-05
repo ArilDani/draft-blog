@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karyaguna Marketplace Tukang</title>
+
+<!-- AOS Animation -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #0d6efd;
+  --dark: #1e1e1e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--light);
+  color: var(--dark);
+}
+
+section {
+  padding: 70px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* HERO */
+.hero h1 {
+  font-size: 42px;
+  letter-spacing: 1px;
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  aspect-ratio: 16 / 9; /* desktop ratio */
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  animation: slide 18s infinite;
+}
+
+.slides img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ANIMATION */
+@keyframes slide {
+  0%, 20% {
+    transform: translateX(0);
+  }
+  25%, 45% {
+    transform: translateX(-100%);
+  }
+  50%, 70% {
+    transform: translateX(-200%);
+  }
+  75%, 95% {
+    transform: translateX(-300%);
+  }
+}
+
+/* BUTTON */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 35px 0;
+}
+
+.btn {
+  padding: 14px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: all .35s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+}
+
+.btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(13,110,253,.4);
+}
+
+.btn-instagram {background:#E1306C;}
+.btn-tiktok {background:#000;}
+
+.btn-instagram:hover,
+.btn-tiktok:hover {
+  transform: scale(1.08);
+}
+
+/* DESCRIPTION */
+.description {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+/* TEAM */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.team-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: all .4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.team-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+
+.team-card img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  transition: .4s;
+}
+
+.team-card:hover img {
+  transform: scale(1.1);
+}
+
+/* ACHIEVEMENT */
+.achievement img {
+  max-width: 520px;
+  width: 100%;
+  border-radius: 18px;
+  margin: 30px auto;
+  display: block;
+  transition: .5s;
+}
+
+.achievement img:hover {
+  transform: scale(1.04);
+}
+
+.achievement p {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+/* FOOTER CTA */
+.footer-cta {
+  color: #ffffff;
+  text-align: center;
+  padding: 70px 20px;
+}
+
+.footer-cta h2 {
+  margin-bottom: 25px;
+}
+/* =========================
+   RESPONSIVE MOBILE
+   ========================= */
+@media (max-width: 768px) {
+
+  section {
+    padding: 40px 16px;
+  }
+
+  /* HERO TITLE */
+  .hero h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  /* SLIDER RESPONSIVE */
+  .slider {
+    height: auto;
+    aspect-ratio: 1 / 1;   /* KOTAK */
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .slides img {
+    height: 100%;
+    width: 100%;
+    object-position: center;
+  }
+
+  /* BUTTON */
+  .btn {
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+
+  /* DESCRIPTION */
+  .description {
+    font-size: 15px;
+    padding: 0 6px;
+  }
+
+  /* TEAM */
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .team-card {
+    padding: 24px 16px;
+  }
+
+  /* ACHIEVEMENT TEXT */
+  .achievement p {
+    font-size: 15px;
+    padding: 0 6px;
+  }
+
+  /* FOOTER */
+  .footer-cta h2 {
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  
+
+  <div class="slider" data-aos="zoom-in">
+    <div class="slides">
+      <img src="https://i.pinimg.com/736x/0e/7c/55/0e7c55859f2cba3280b7b429b999e185.jpg">
+      <img src="https://i.pinimg.com/1200x/41/f8/26/41f8265782f33cfd0d2e3ec90cc79bf3.jpg">
+      <img src="https://i.pinimg.com/736x/f9/34/17/f9341791bb438abb2b1f58ce40255a2a.jpg">
+      <img src="https://i.pinimg.com/736x/0e/7c/55/0e7c55859f2cba3280b7b429b999e185.jpg">
+    </div>
+  </div>
+
+  <div class="btn-group" data-aos="fade-up">
+    <a href="https://e-tukang.blogspot.com/p/hilangkan-sidebar-dan-layout-blog.html" class="btn btn-primary">Kunjungi Marketplace</a>
+    <a href="https://www.instagram.com/karyaguna.id?igsh=a2h5ZnN3MXNiYXIz" class="btn btn-instagram">Instagram</a>
+    <a href="https://www.tiktok.com/@_karyaguna?_r=1&_t=ZS-92HthkqrOIz" class="btn btn-tiktok">TikTok</a>
+  </div>
+
+  <div class="description" data-aos="fade-up">
+    <p>
+      Karyaguna merupakan marketplace tukang berbasis web yang dikembangkan menggunakan Blogger,
+      dilengkapi fitur pencarian, pembayaran lengkap, serta chat langsung dengan tukang.
+      Platform ini menjadi solusi digital untuk mempertemukan kebutuhan jasa dengan tenaga profesional.
+    </p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section>
+  <h2 data-aos="fade-up">Our Team</h2>
+
+  <div class="team-grid">
+    <div class="team-card" data-aos="fade-up">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieAKuwsCi8E1PCxRjXVcNNuHUc5d2msoEw2wL73psLmmG7OeV5Ha9XdxBZ6HW-Ph6JojZMJKJfPnu5zSjyu-vmzNagH5lOBl1o3rSrCptNwQw6ZXjFQOetudxlgnqZQeU62q9sWAauip1FFsByx3ltey_tmQY2c5wLbGj7HCx3z-WQr5Q2ioqCd3iB98yZ/s320/ril.jpeg">
+      <h4>M.Aril Ardani</h4>
+      <p>Developer & Content Planner</p>
+    </div>
+
+    <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjYnUrzD4_JIcs-qwzPsnwGoAI-I1lTjK5wJzdyp485T08giHJatX4foMdkWgB2Bh3QjhmD1Gd_cAIg0skq0ALNs2sEBtasG4M2ftrCexsFqGvpir5OUtvi5mYb-l_zqCM9OdtFHQYA0aT25oiodsTjMjSZdqntqI0mELRXFckfRqvuX7gvRU2O5fo2vC5z/s320/upin.jpeg">
+      <h4>Nadya</h4>
+      <p>Content Creator</p>
+    </div>
+
+    <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZ4kXGMus65xg2A4d_tNdKjnv-OSmyhP1_hMW3eTmTam5M8qwfuIhA4JurhUTpC3RX5H9m_6pYWYaF_kTo6UG0kLNXjaYPoNkHt_hECrxyIobRhHe2UBfSSgd7OKpWcsvhPE0ZgaRSEvZQX3x1j1oGOA0TdP9NlFQ_KzbzrO8gwlrZtjkO3JolvufbNkNd/s943/Nhda.jpeg">
+      <h4>Nahda</h4>
+      <p>Graphic Desainer</p>
+    </div>
+
+    <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmSnLJ0hnz9290_E5_wSel4P7byESbfbBK5CzJRMhmF4QHHncJBDSFq_fJdlGiamotmo6pzsX0bt16HBvgnYk0KMK8K2RL8_oJFHoBMSnS1JZLaLDNFBL6yfBqLL9pqqnY1h869GEX3oHlesGfAMmDZIcZ_iAymuTwgnJaylGIjsmgZiiaeq0mH-71quZO/s320/ketua.jpeg">
+      <h4>Naufal</h4>
+      <p>Copy Writer</p>
+    </div>
+
+    <div class="team-card" data-aos="fade-up" data-aos-delay="400">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiHKim2evmsab5cVH49a1ixLvyeH0L2bbYXaLDlaJXefiPMsyhRHEi_37Kve1gjd_eMimA5u-6PGZ77RFuATGJdReFN26ZgkZKZoO60j6vZjgBnwKZNg2Bq8KFSJhl_jlkI571NGlGdsVn6EM-EeVPPpmdJODMdXt0psJiH9hBnYuS_wDCcSxRPCcPCgvKq/s320/ikram.jpeg">
+      <h4>Ikram</h4>
+      <p>Social Media admin</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENT -->
+<section class="achievement">
+  <h2 data-aos="fade-up">Achievement</h2>
+
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlqop8KzT9jaWGMbljyTkXuJ7l_IflvUHCBcuwQ6ZfdhUluCgIptHhoxBkjAIphJuZdb2vKVJST1hMklQPVtqtk7ljQyZSCT-JhmeMYp9EwnkNlUgKkw7OIKcIHnCZ5IWJzBs-Xbvv4XxJm8xzVRyBI4rVrq0Ch9r2jacm23niTY9FKW_LvXgO7zD68Yj1/s1280/team2.jpeg" data-aos="zoom-in">
+
+  <p data-aos="fade-up">
+    Karyaguna berhasil meraih Juara 1 Digital Marketing Days (DMD) setelah menjalankan strategi
+    konten promosi selama tiga minggu sekaligus mengembangkan platform marketplace.
+    Kolaborasi antara tim marketing dan pengembangan produk membuktikan hasil yang nyata. Untuk kemudahan kita semua,
+    <strong>Pakai Karyaguna aja.</strong>
+  </p>
+</section>
+
+<!-- FINAL CTA -->
+<div class="footer-cta" data-aos="fade-up">
+  <h2>Butuh Tukang Cepat dan Terpercaya?</h2>
+  <a href="https://e-tukang.blogspot.com/p/hilangkan-sidebar-dan-layout-blog.html" class="btn btn-primary">Pakai karyaguna aja</a>
+</div>
+
+<!-- AOS SCRIPT -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+
+</body>
+</html>

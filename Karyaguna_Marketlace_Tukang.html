@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaryaGuna - Pilih & Pesan Jasa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* [GLOBAL RESET & UTILITY CSS] */
+        #sidebar-wrapper, .sidebar, .header-outer, .footer, #sidebar,
+        #right-sidebar, #left-sidebar, aside, .widget-area, .column-right-outer, .column-left-outer {
+            display: none !important;
+        }
+        #main-wrapper, #content-wrapper, .content-outer, .blog-posts, .post, .container, .main {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            float: none !important;
+        }
+        :root {
+            --primary-color: #007bff; /* Biru cerah untuk tombol dan aksen */
+            --secondary-color: #f8f9fa; /* Latar belakang cerah */
+            --text-color: #343a40; /* Warna teks gelap */
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* ----------------------------------- */
+        /* --- HEADER SLIDER --- */
+        /* ----------------------------------- */
+        .header {
+            position: relative;
+            height: 300px; 
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        #sliderWrapper {
+            display: flex;
+            width: 500%; 
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.8s ease-in-out; 
+        }
+
+        .slide-image {
+            width: 20%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 5 Gambar Latar Belakang */
+        .slide-image:nth-child(1) { background-image: url('https://i.pinimg.com/736x/0e/7c/55/0e7c55859f2cba3280b7b429b999e185.jpg'); } 
+        .slide-image:nth-child(2) { background-image: url('https://i.pinimg.com/1200x/41/f8/26/41f8265782f33cfd0d2e3ec90cc79bf3.jpg'); } 
+        .slide-image:nth-child(3) { background-image: url('https://i.pinimg.com/736x/f9/34/17/f9341791bb438abb2b1f58ce40255a2a.jpg'); } 
+        .slide-image:nth-child(4) { background-image: url('https://i.pinimg.com/736x/0e/7c/55/0e7c55859f2cba3280b7b429b999e185.jpg'); } 
+        .slide-image:nth-child(5) { background-image: url('https://i.pinimg.com/1200x/41/f8/26/41f8265782f33cfd0d2e3ec90cc79bf3.jpg'); } 
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); 
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            margin: auto; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .header h1 {
+            color: #fff;
+            font-size: 2.2em; 
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .search-box {
+            display: flex;
+            width: 100%;
+            background: #fff;
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 50px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            font-size: 1em;
+            padding: 5px 10px;
+            width: 100px;
+        }
+
+        /* --- Main Content Section --- */
+        .main-container {
+            padding: 0 20px 40px;
+            max-width: 1200px;
+            margin: -50px auto 0; 
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Category Filter --- */
+        .category-filter {
+            background-color: #fff;
+            padding: 20px 10px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .category-item {
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+            flex-basis: calc(100% / 6 - 10px); 
+            min-width: 80px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        
+        /* --- MEDIA QUERIES (RESPONSIVE) --- */
+        @media (max-width: 992px) {
+            .header {
+                height: 250px; 
+            }
+            .main-container {
+                margin: -40px auto 0;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                height: 200px; 
+            }
+            .main-container {
+                padding: 0 15px 30px;
+                margin: -30px auto 0;
+            }
+
+            .category-item {
+                flex-basis: calc(100% / 3 - 10px); 
+                margin-bottom: 10px; 
+            }
+            
+            .service-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            }
+            
+            /* Menyesuaikan modal detail untuk mobile */
+            .detail-modal-image {
+                height: 180px !important;
+            }
+            .detail-content h2 {
+                font-size: 1.4em !important;
+            }
+            .detail-content p {
+                font-size: 0.9em !important;
+            }
+        }
+        
+        /* --- Lanjutan Styling Umum --- */
+        .category-item:hover {
+            transform: translateY(-3px);
+            opacity: 0.9;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            margin: 0 auto 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em; 
+            color: var(--primary-color);
+        }
+
+        .category-icon img {
+            max-width: 80%; 
+            max-height: 80%; 
+            object-fit: contain; 
+        }
+
+        .category-item.active .category-icon {
+            background-color: var(--primary-color);
+            color: #fff; 
+        }
+
+        .category-item p {
+            font-size: 0.8em;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* --- Service Grid --- */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 24px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            aspect-ratio: 16/10;
+            display: block;
+            background-color:#f3f4f6 ;
+        }
+
+        .card-content {
+            padding: 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .card-info {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: gold;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+           flex: 1;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-order {
+            background-color: var(--primary-color);
+            color: #fff;
+            flex-grow: 1;
+        }
+
+        .btn-order:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-chat {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-chat:hover {
+            background-color: #1e7e34;
+        }
+
+        /* --- MODAL DETAIL JASA BARU --- */
+        #serviceDetailModal .modal-content {
+            padding: 0;
+            max-width: 600px;
+        }
+
+        .detail-modal-image {
+            width: 100%;
+            height: 20px; /* Tinggi gambar detail */
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .detail-content {
+            padding: 20px;
+        }
+
+        .detail-content h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .detail-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-info-row .price {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .detail-info-row .rating-info {
+            font-size: 1em;
+        }
+
+        .detail-description h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .detail-description p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* --- Modal Styling Umum --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10; /* Pastikan tombol X di atas gambar */
+        }
+        
+        /* ... (CSS modal lainnya) ... */
+        .modal-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5em;
+            color: var(--primary-color);
+        }
+        
+        .pay-method-btn {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        #addressModal .modal-content{
+            max-width:420px;
+            padding:20px;
+            border-radius:14px;
+        }
+
+        /* Header modal address */
+        #addressModal .modal-header{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            text-align:center;
+            gap:4px;
+            margin-bottom:16px;
+        }
+        #addressModal .modal-header h2{ font-size:22px; color:#111; margin:0; font-weight:700; }
+        #addressModal #addressServiceName{ color:var(--muted); font-size:0.95em; display:block; margin-top:0; }
+
+        /* Form groups: label on top, inputs full width */
+        #addressModal .form-group{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; width:100%; }
+        #addressModal label{ font-size:0.95em; color:#222; font-weight:600; }
+        #addressModal input[type="text"],
+        #addressModal input[type="tel"],
+        #addressModal textarea{
+            width:100%;
+            padding:10px 12px;
+            border:1.5px solid #e6e6e6;
+            border-radius:10px;
+            font-size:0.95em;
+            outline:none;
+            transition: box-shadow .12s ease, border-color .12s ease;
+            resize:vertical;
+            background:#fff;
+        }
+        #addressModal input[type="text"]:focus,
+        #addressModal input[type="tel"]:focus,
+        #addressModal textarea:focus{
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.08);
+        }
+        #addressModal textarea{ min-height:84px; line-height:1.4; }
+
+        /* Error message (keep visible style) */
+        #addressError{ color:#d9534f; font-size:0.9em; margin-top:-6px; margin-bottom:10px; display:none; text-align:left; }
+
+        /* Payment method area - grid of two columns to match design */
+        #addressModal .payment-methods{
+            display:grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap:10px;
+            margin-bottom:14px;
+        }
+
+        /* Style each payment button to look like small pills/tiles */
+        #addressModal .pay-method-btn{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:12px;
+            border-radius:12px;
+            border:1.5px solid #e6e6e6;
+            background:#fafafa;
+            font-weight:600;
+            cursor:pointer;
+            transition: all .14s ease;
+            font-size:0.95em;
+            box-shadow:none;
+        }
+        #addressModal .pay-method-btn:hover{
+            transform:translateY(-2px);
+            border-color:#dcdcdc;
+        }
+
+        /* Active payment method look (selected) */
+        #addressModal .pay-method-btn.active{
+            background:var(--primary-color);
+            color:#fff;
+            border-color:var(--primary-color);
+            box-shadow: 0 6px 18px rgba(0,123,255,0.12);
+        }
+
+        /* Submit button tweaks to match big blue rounded button */
+        #addressModal #submitAddressBtn{
+            background:var(--primary-color);
+            color:#fff;
+            border-radius:12px;
+            padding:12px 14px;
+            font-size:1.03em;
+            font-weight:700;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,123,255,0.12);
+            cursor:pointer;
+        }
+        #addressModal #submitAddressBtn:active{ transform:translateY(1px); }
+
+        /* Make close button unobtrusive for small modal */
+        #addressModal .close-btn{ right:12px; top:10px; color:#999; }
+
+        /* Responsive adjustments */
+        @media (max-width:480px){
+            .header{ height:200px; }
+            .header h1{ font-size:18px; }
+            #addressModal .modal-content{ padding:16px; max-width:360px; }
+            #addressModal .modal-header h2{ font-size:20px; }
+            #addressModal .pay-method-btn{ padding:10px; font-size:0.95em; border-radius:10px; }
+            #addressModal #submitAddressBtn{ font-size:1em; padding:12px; border-radius:10px; }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header class="header" id="headerSlider">
+        <div id="sliderWrapper">
+            <div class="slide-image"></div>
+            <div class="slide-image"></div>
+            <div class="slide-image"></div>
+            <div class="slide-image"></div>
+            <div class="slide-image"></div>
+        </div>
+        
+        <div class="header-overlay"></div>
+
+        <div class="header-content">
+            <h1>KaryaGuna - Pilih & pesan jasa</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="cari jasa...">
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <div class="category-filter">
+            <div class="category-item active" data-filter="all">
+                <div class="category-icon">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgWnYZPH9aEJABrFVVe3in6tcOUKS0afvj75t-S0BPf5pBlpc7q3EP2GzrYBgmUNAXAUIwKVmloibi8LTgQ5tKBuTcreploV9Ulnlqfp0QHGHADkIxR6vmmgHyqiU9hhkCHJud7QALrhc7hqyuEyF6apGouhpyZaKVZwEN1yLdJroZmJhPw9XX3DgjrMOqn" alt="Semua">
+                </div>
+                <p>Semua</p>
+            </div>
+            <div class="category-item" data-filter="air">
+                <div class="category-icon">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjTGHxxNTnJEbHS9gaH6dTr22Jok2fXKGnz8pYemRoV2K8desZidsZpqgwOygXZS5ejK-zAf8eVpcrbu_hkKxqkDTjD1CXKoePzxScBBwmiJKXGQvoJDT5DCJPzvnS2wLgliLBfqeZOGvaJFM5bp2jRRW3MGLgYtHIeYhwND_ZtDBrmo6YT2MX4bS-tH4WB" alt="Air dan pipa">
+                </div>
+                <p>Air dan pipa</p>
+            </div>
+            <div class="category-item" data-filter="listrik">
+                <div class="category-icon">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEglKLDTH0Fb8apKmOjcpehZvQTYqEiQC_DkG5EMj0kqpsphX1mp1Hrjs9pnZ4490FnoW_k2RXGDn5YIDLFI-E3kGrVx9XawSS0_veKlXov1rSmBJaM3uwBldgGBNjTba3ueJFP_fcDU15aA91k4FD43vzGONSS_ylmJ4zjPykHZ_vtm7jX_n_zp7Od4TTOF" alt="Listrik">
+                </div>
+                <p>Listrik</p>
+            </div>
+            <div class="category-item" data-filter="bangunan">
+                <div class="category-icon">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgmUdz9lcYgVvg9ESMrXPKSYgT66WX0ct8eCUfYNTSz0h_h-ab6uNP9F3y5oiTpnHZZTHMzTwCsPoXymvtFtHxFORLIhPAbTxyR8ULwJbsUnbVBJDt_Iq1Wb0nZLvcYJi4nW2vWGaw4XmpUYfUbJ60y8VEC46_Q9ULhtgF8-mIOhOCzu8yl6skTTLlQGYpU" alt="Bangunan">
+                </div>
+                <p>Bangunan</p>
+            </div>
+            <div class="category-item" data-filter="ac">
+                <div class="category-icon">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhXcFGVisxsXc74o9sYk8y4XCDxImNW3BvGfu7hoANtsHav_VXUEMA8mtO7lduIbA_-IvM-I8Kgo5v8ejfBuYHHCiF5LVR4s1jKqzWPI5dKL_efp8HWI_HhejqmDemh3MO_MuOvPr_M-zIjAc80DmnR9ACj0ukbVeVpaYXK7Zab0RzaDWdMERZp9mUVnSRK" alt="Ac">
+                </div>
+                <p>Ac</p>
+            </div>
+            <div class="category-item" data-filter="kebersihan">
+                <div class="category-icon">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgApAzIfUenfWgFNUyJVU7gKd2LDX3Lkis99T4YStzMLjuXZVPQL36VeaXSDR8f6mqH0pgFuQ5xog3pN8nVK8zURkqjIjdMocy9yn9Fwru2lltEnpeIz9nJnkQGAeg3r3jpEZAdhHUk0_HnbX4Z9-7_VgyRD4091ZHvmmcVIRR2_qw-sPoq2tlskJF71PQU" alt="Kebersihan">
+                </div>
+                <p>Kebersihan</p>
+            </div>
+        </div>
+
+        <div class="service-grid" id="serviceGrid">
+        </div>
+
+    </main>
+    
+    <div id="serviceDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeDetailModal()">&times;</span>
+            <img id="detailImage" src="" alt="Detail Jasa" class="detail-modal-image">
+            <div class="detail-content">
+                <h2 id="detailTitle"></h2>
+                
+                <div class="detail-info-row">
+                    <div class="rating-info">
+                        <span id="detailRatingText" style="font-weight: 600;"></span>
+                        <span id="detailRatingStars"></span>
+                    </div>
+                    <div class="price" id="detailPrice"></div>
+                </div>
+
+                <div class="detail-description">
+                    <h3>Deskripsi Jasa</h3>
+                    <p id="detailDescription"></p>
+                </div>
+                
+                <div class="detail-actions">
+                    <button class="btn btn-order" id="detailPesanBtn">Pesan Jasa Ini</button>
+                    <button class="btn btn-chat" id="detailChatBtn">Chat Tukang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addressModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddressModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Buat pesanan</h2>
+                <span id="addressServiceName">Nama Jasa</span>
+            </div>
+            <div class="form-group">
+                <label for="custName">Nama</label>
+                <input type="text" id="custName" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="custPhone">Nomor HP (WhatsApp)</label>
+                <input type="tel" id="custPhone" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="custAddress">Alamat Lengkap</label>
+                <textarea id="custAddress" rows="3" placeholder=""></textarea>
+            </div>
+            <p id="addressError" class="error-message" style="display:none; color:red; margin-top:-10px; margin-bottom:15px;">Mohon lengkapi semua data alamat.</p>
+            
+            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #111; font-size: 1.1em;">Metode pembayaran</label>
+            <div class="payment-methods" id="addressPaymentMethods">
+                </div>
+            
+            <button class="btn btn-order" id="submitAddressBtn" style="width: 100%;">Buat pesanan</button>
+        </div>
+    </div>
+
+    <div id="payDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePayDetailModal()">&times;</span>
+            <div class="modal-header" style="justify-content: center;">
+                <h2 id="payDetailTitle">Bayar di Tempat (COD)</h2>
+            </div>
+            <div id="payDetailContent" class="pay-detail-content">
+            </div>
+            
+            <div class="pay-detail-actions">
+                <button class="btn" id="confirmPaidBtn">Saya Sudah Membayar</button>
+                <button class="btn" id="backToAddressBtn">Kembali</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="countdownModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close-btn" onclick="closeCountdown()">&times;</span>
+            <div class="modal-header" style="justify-content: center;">
+                <h2>Tukang Dalam Perjalanan!</h2>
+            </div>
+            <p style="font-size: 1.1em; margin-bottom: 10px;">Estimasi Waktu Tiba:</p>
+            <div class="countdown-timer" id="countdownTimer">03:00</div>
+            <p style="margin-bottom: 20px;">Anda dapat menghubungi tukang jika ada kendala:</p>
+            <button class="btn btn-chat" onclick="openWA(false)">
+                <i class="fab fa-whatsapp"></i> Chat Tukang
+            </button>
+            <button class="btn btn-order" id="confirmArrivalBtn" style="width: 100%; margin-top: 20px; display: none;">Konfirmasi Tukang Tiba</button>
+            <button class="btn" style="background-color: #6c757d; color: #fff; width: 100%; margin-top: 10px;" onclick="closeCountdown()">Tutup</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWz5L3S9F9y2j63aB51/eA2zC/7T+g98E3L9w3rPz3d5A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        // Data Dummy Jasa
+        const services = [
+            { id: 1, title: "Jasa Perbaikan PIPA & Plumbing", price: 150000, wa: "6282292781754", category: "air", area: "Makassar", rating: 4.7, image: "https://i.pinimg.com/1200x/6e/8f/25/6e8f2520d6ebf9b929192ef169582478.jpg", description: "Layanan perbaikan pipa bocor, saluran tersumbat, dan instalasi plumbing baru. Tukang profesional dan bergaransi." },
+            { id: 2, title: "Tukang Bangunan / Kuli Umum", price: 100000, wa: "6282142153029", category: "bangunan", area: "Makassar", rating: 4.7, image: "https://i.pinimg.com/736x/1f/f5/2e/1ff52edc8de9d7e6c41b35e729da6c29.jpg", description: "Jasa tenaga kuli harian untuk renovasi, pembangunan pondasi, pengecoran, dan pekerjaan konstruksi lainnya. Harga harian per orang."},
+            { id: 3, title: "Jasa Sedot WC Profesional", price: 320000, wa: "6285213579208", category: "kebersihan", area: "Makassar", rating: 4.9, image: "https://i.pinimg.com/1200x/02/54/dc/0254dc20c7bfa2b075930b48800358a4.jpg", description: "Layanan sedot WC dan perbaikan saluran mampet dengan mobil tanki modern. Layanan cepat, bersih, dan tuntas." },
+            { id: 4, title: "Tukang Listrik Rumah & Kantor", price: 180000, wa: "6289528087495", category: "listrik", area: "Makassar", rating: 4.6, image: "https://i.pinimg.com/1200x/0b/69/b6/0b69b6436d2c4be90bfd5bbae5dc8cd7.jpg", description: "Spesialis instalasi listrik baru, perbaikan konsleting, penambahan titik lampu/stop kontak, dan ganti MCB. Tersedia 24 jam."},
+            { id: 5, title: "Service AC Split/Window", price: 150000, wa: "6282292781754", category: "ac", area: "Makassar", rating: 4.8, image: "https://i.pinimg.com/736x/02/2a/a6/022aa6b34121d86ec6896a65ff75348b.jpg", description: "Layanan cuci AC, isi freon, perbaikan AC bocor atau tidak dingin. Harga tertera adalah untuk cuci AC (cleaning service)."},
+            { id: 6, title: "Pengecatan Tembok Interior", price: 150000, wa: "6282142153029", category: "bangunan", area: "Makassar", rating: 4.5, image: "https://i.pinimg.com/1200x/cd/46/1c/cd461cbec1b1c781dbc071ea66bfe431.jpg", description: "Jasa pengecatan tembok interior dan exterior rumah, kantor, atau apartemen. Harga per meter persegi belum termasuk bahan."},
+            { id: 7, title: "Layanan Cleaning Service Harian", price: 200000, wa: "6282292781754", category: "kebersihan", area: "Makassar", rating: 4.7, image: "https://i.pinimg.com/1200x/11/fb/24/11fb24abda01d67e3c843945016f67da.jpg", description: "Pembersihan rumah, kantor, atau apartemen secara menyeluruh. Tersedia paket harian, mingguan, dan pasca renovasi."},
+            { id: 8, title: "Jasa Tukang Las Besi & Kanopi", price: 220000, wa: "6285213579208", category: "bangunan", area: "Makassar", rating: 4.0, image: "https://i.pinimg.com/1200x/ea/cd/78/eacd78cba9ca1737f3eeffd4e5f795cd.jpg", description: "Pembuatan dan perbaikan pagar, tralis, kanopi, dan konstruksi besi. Menerima custom design dan bergaransi kekuatan."},
+            { id: 9, title: "Jasa Tukang Kebun & Taman", price: 130000, wa: "6289528087495", category: "kebersihan", area: "Makassar", rating: 4.0, image: "https://i.pinimg.com/736x/ea/9c/cc/ea9ccc3b1c5d9816e568cdcda966a71f.jpg", description: "Potong rumput, perawatan tanaman, desain dan pembuatan taman baru. Ahli dalam pemilihan tanaman hias tropis."},
+        ];
+        
+        // Data Metode Pembayaran
+        const paymentMethods = [
+            { type: 'bank', name: 'Transfer bank', icon: 'fas fa-university' },
+            { type: 'ewallet', name: 'E-Wallet', icon: 'fas fa-wallet' },
+            { type: 'cod', name: 'Cod', icon: 'fas fa-hand-holding-usd' },
+            { type: 'qris', name: 'Qris', icon: 'fas fa-qrcode' },
+        ];
+
+
+        let selectedService = {};
+        let customerData = { name: '', phone: '', address: '' };
+        let selectedPayment = 'bank'; 
+        let countdownInterval;
+        let countdownTime;
+
+        // ==========================
+        // FUNGSI SLIDER OTOMATIS
+        // ==========================
+        function startHeaderSlider() {
+            const sliderWrapper = document.getElementById('sliderWrapper');
+            const totalImages = 5;
+            let currentImage = 0; 
+
+            setInterval(() => {
+                currentImage = (currentImage + 1) % totalImages; 
+                const translateXValue = -(currentImage * 100) / totalImages;
+                sliderWrapper.style.transform = `translateX(${translateXValue}%)`;
+            }, 3000); 
+        }
+
+        // Fungsi untuk mengonversi harga ke format Rupiah
+        function formatPrice(price) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(price);
+        }
+
+        // Fungsi untuk membuat rating stars
+        function getRatingStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+            const emptyStars = 5 - fullStars - halfStar;
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) stars += '<i class="fas fa-star rating"></i>';
+            if (halfStar) stars += '<i class="fas fa-star-half-alt rating"></i>';
+            for (let i = 0; i < emptyStars; i++) stars += '<i class="far fa-star rating" style="color:#ccc;"></i>';
+            return stars;
+        }
+
+        // Fungsi untuk merender Kartu Jasa
+        function renderServiceCards(filteredServices) {
+            const grid = document.getElementById('serviceGrid');
+            grid.innerHTML = ''; 
+
+            if (filteredServices.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; margin-top: 30px; font-size: 1.2em;">Tidak ada jasa yang ditemukan.</p>';
+                return;
+            }
+
+            filteredServices.forEach(service => {
+                const cardHtml = `
+                    <div class="service-card" data-id="${service.id}">
+                        <img src="${service.image}" alt="${service.title}" class="card-image">
+                        <div class="card-content">
+                            <h3>${service.title}</h3>
+                            <div class="card-info">
+                                <span class="rating-text">${service.rating}</span> ${getRatingStars(service.rating)} 
+                                | Area Layanan: ${service.area}
+                            </div>
+                            <p style="font-size: 1.2em; font-weight: 700; color: #111; margin-bottom: 10px;">${formatPrice(service.price)}</p>
+                            <div class="card-actions">
+                                <button class="btn btn-order" data-action="order">Pesan</button>
+                                <button class="btn btn-chat" data-action="chat">Chat</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHtml);
+            });
+
+            // EVENT LISTENER BARU UNTUK KARTU & TOMBOL
+            document.querySelectorAll(".service-card").forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const serviceData = services.find(s => s.id == this.dataset.id);
+                    selectedService = serviceData; // Set selectedService global
+
+                    if (e.target.dataset.action === 'order') {
+                        openAddressModal(selectedService);
+                    } else if (e.target.dataset.action === 'chat') {
+                        openWA(false);
+                    } else {
+                        openDetailModal(selectedService);
+                    }
+                });
+            });
+        }
+
+        // Fungsi untuk Filter dan Search (Tidak Berubah)
+        function applyFilteringAndSearch() {
+            const activeFilter = document.querySelector('.category-item.active').dataset.filter;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+
+            const filteredServices = services.filter(service => {
+                const categoryMatch = activeFilter === 'all' || service.category === activeFilter;
+                const searchMatch = service.title.toLowerCase().includes(searchTerm) || service.area.toLowerCase().includes(searchTerm);
+
+                return categoryMatch && searchMatch;
+            });
+
+            renderServiceCards(filteredServices);
+        }
+
+        // Event Listeners untuk Filter Kategori (Tidak Berubah)
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                applyFilteringAndSearch();
+            });
+        });
+
+        // Event Listener untuk Search Input (Tidak Berubah)
+        document.getElementById('searchInput').addEventListener('input', applyFilteringAndSearch);
+        
+        // ==========================
+        // MODAL DETAIL JASA 
+        // ==========================
+        function openDetailModal(service) {
+            document.getElementById('detailImage').src = service.image;
+            document.getElementById('detailTitle').textContent = service.title;
+            document.getElementById('detailRatingText').textContent = service.rating;
+            document.getElementById('detailRatingStars').innerHTML = getRatingStars(service.rating);
+            document.getElementById('detailPrice').textContent = formatPrice(service.price);
+            document.getElementById('detailDescription').textContent = service.description;
+            
+            document.getElementById('detailPesanBtn').onclick = () => {
+                closeDetailModal();
+                openAddressModal(service);
+            };
+            document.getElementById('detailChatBtn').onclick = () => {
+                openWA(false); 
+            };
+
+            document.getElementById("serviceDetailModal").style.display = "flex";
+        }
+
+        function closeDetailModal() {
+            document.getElementById("serviceDetailModal").style.display = "none";
+        }
+
+
+        // ==========================
+        // MODAL ALAMAT/PEMESANAN 
+        // ==========================
+        function renderPaymentButtons() {
+            const container = document.getElementById('addressPaymentMethods');
+            container.innerHTML = '';
+            
+            paymentMethods.forEach(method => {
+                const isActive = method.type === selectedPayment ? 'active' : '';
+                const buttonHtml = `
+                    <button class="pay-method-btn ${isActive}" data-type="${method.type}">
+                        ${method.name}
+                    </button>
+                `;
+                container.insertAdjacentHTML('beforeend', buttonHtml);
+            });
+            
+            // Re-attach listeners untuk tombol pembayaran
+            document.querySelectorAll('#addressPaymentMethods .pay-method-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    selectedPayment = this.dataset.type;
+                    
+                    // Hapus 'active' dari semua tombol
+                    document.querySelectorAll('#addressPaymentMethods .pay-method-btn').forEach(b => b.classList.remove('active'));
+                    // Tambahkan 'active' ke tombol yang diklik
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        function openAddressModal(card) {
+            selectedService = card; 
+            if (!selectedPayment) selectedPayment = 'bank'; 
+
+            document.getElementById("addressServiceName").textContent = selectedService.title;
+            document.getElementById("addressError").style.display = "none";
+            document.getElementById("custName").value = customerData.name || '';
+            document.getElementById("custPhone").value = customerData.phone || '';
+            document.getElementById("custAddress").value = customerData.address || '';
+            
+            renderPaymentButtons(); 
+
+            document.getElementById("addressModal").style.display = "flex";
+        }
+
+        function closeAddressModal() {
+            document.getElementById("addressModal").style.display = "none";
+        }
+
+        document.getElementById("submitAddressBtn").onclick = () => {
+            const name = document.getElementById("custName").value.trim();
+            const phone = document.getElementById("custPhone").value.trim();
+            const address = document.getElementById("custAddress").value.trim();
+
+            if (!name || !phone || !address || !selectedPayment) {
+                document.getElementById("addressError").style.display = "block";
+                return;
+            }
+
+            customerData.name = name;
+            customerData.phone = phone;
+            customerData.address = address;
+
+            closeAddressModal();
+            openPayDetailModal(selectedPayment); 
+        };
+        
+        // ==========================
+        // MODAL DETAIL PEMBAYARAN/KONFIRMASI 
+        // ==========================
+
+        function openPayDetailModal(type) {
+            selectedPayment = type;
+            const t = document.getElementById("payDetailTitle");
+            const c = document.getElementById("payDetailContent");
+            const confirmBtn = document.getElementById("confirmPaidBtn");
+            const backBtn = document.getElementById("backToAddressBtn");
+
+            c.innerHTML = "";
+            const formattedPrice = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(selectedService.price);
+            
+            const paymentMethod = paymentMethods.find(m => m.type === type);
+            const paymentName = paymentMethod ? paymentMethod.name.toUpperCase() : 'PEMBAYARAN';
+
+            let html = `
+                <div style="font-weight: 700; font-size: 1.2em; text-align: center; margin-bottom: 20px;">
+                    ${paymentName}
+                </div>
+                
+                <b>Detail Pesanan:</b><br>
+                Nama Jasa: ${selectedService.title}<br>
+                Total Biaya: ${formattedPrice}<br>
+                
+                <b style="margin-top: 10px; display: block;">Data Anda:</b><br>
+                Nama Pemesan: ${customerData.name}<br>
+                Nomor Kontak: ${customerData.phone}<br>
+                Alamat Layanan: ${customerData.address}<br><br>
+            `;
+            
+            // Konten spesifik berdasarkan tipe pembayaran
+            if (type === "bank") {
+                t.textContent = "TRANSFER BANK";
+                html += `<b>Bank:</b> BCA<br><b>No Rekening:</b> 7686832324`;
+                confirmBtn.textContent = 'Konfirmasi';
+            }
+            else if (type === "cod") {
+                t.textContent = "BAYAR DI TEMPAT (COD)";
+                html += `<p style="margin-top: 15px;">Anda akan membayar langsung ke tukang saat pekerjaan selesai. Klik **Saya Sudah Membayar** (Konfirmasi COD) untuk mengirimkan detail pesanan ke tukang.</p>`;
+                confirmBtn.textContent = 'Konfirmasi';
+            } 
+            else if (type === "ewallet") {
+                t.textContent = "E-WALLET";
+                html += `<b>No. E-Wallet:</b> 082348316199`;
+                confirmBtn.textContent = 'Konfirmasi';
+            } 
+            else if (type === "qris") {
+                t.textContent = "QRIS";
+                html += `
+                    <div style='text-align:center;'>
+                        <img src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipSTm1P_Pz9XLZ7VSzJ8MrQ1RWwApxINPDqIGHgW_5mF5TPl0LlKVqC0h_uJpu8wjRMe2XVxQXSyfnmD8W9uMG_2_rLPIJM5NWcS8DOwjC8JwvJUhT5zrs2cIa2GBKdkq-_sGl_Kk9laava0FkvvemHiPcQTHHQNYt1L1Ly9PHZwRcEIKa8f0I5pqz3nTW/s320/qris.jpeg' style='width:180px; margin:10px auto; display:block;'>
+                    </div>
+                    Scan QR di atas untuk membayar.
+                `;
+                confirmBtn.textContent = 'Konfirmasi';
+            }
+
+            c.innerHTML = html;
+            t.textContent = paymentName; 
+
+            // Menetapkan action untuk tombol konfirmasi
+            confirmBtn.onclick = () => {
+                closePayDetailModal();
+                startCountdown();
+                openWA(true);
+            };
+            
+            // Menetapkan action untuk tombol kembali
+            backBtn.onclick = () => {
+                closePayDetailModal();
+                openAddressModal(selectedService);
+            };
+
+            document.getElementById("payDetailModal").style.display = "flex";
+        }
+
+        function closePayDetailModal() {
+            document.getElementById("payDetailModal").style.display = "none";
+        }
+
+
+        // ==========================
+        // LOGIC COUNTDOWN & WA (Tidak Berubah)
+        // ==========================
+        function startCountdown() {
+            countdownTime = 180; 
+            clearInterval(countdownInterval);
+            document.getElementById("countdownModal").style.display = "flex";
+            document.getElementById("confirmArrivalBtn").style.display = "none";
+            document.getElementById("countdownTimer").textContent = "03:00";
+
+            countdownInterval = setInterval(() => {
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
+                document.getElementById("countdownTimer").textContent = 
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                countdownTime--;
+
+                if (countdownTime < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdownTimer").textContent = "Tiba!";
+                    document.getElementById("confirmArrivalBtn").style.display = "block";
+                }
+            }, 1000);
+        }
+
+        function closeCountdown() {
+            clearInterval(countdownInterval);
+            document.getElementById("countdownModal").style.display = "none";
+        }
+
+        document.getElementById("confirmArrivalBtn").onclick = () => {
+            closeCountdown();
+            alert("Terima kasih! Tukang telah dikonfirmasi tiba. Pesanan selesai.");
+        };
+        
+        function openWA(isOrder) {
+            const waNumber = selectedService.wa;
+            let message = "";
+
+            if (isOrder) {
+                const orderType = selectedPayment.toUpperCase();
+
+                message = `
+*PESANAN JASA BARU - ${orderType}*
+============================
+*JASA:* ${selectedService.title}
+*HARGA:* ${formatPrice(selectedService.price)}
+
+*DATA PELANGGAN*
+*Nama:* ${customerData.name}
+*HP/WA:* ${customerData.phone}
+*Alamat:* ${customerData.address}
+============================
+Mohon segera diproses dan menuju lokasi pelanggan. Terima kasih!
+                `.trim();
+            } else {
+                message = `Halo, saya memesan jasa *${selectedService.title}* atas nama ${customerData.name || 'Pelanggan'}. Apakah tukang sudah dalam perjalanan?`;
+            }
+            if (waNumber) {
+                 window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, "_blank");
+            } else {
+                alert("Nomor WhatsApp tukang tidak tersedia.");
+            }
+
+        }
+
+        // Panggil fungsi slider saat dokumen siap
+        document.addEventListener('DOMContentLoaded', () => {
+            applyFilteringAndSearch();
+            startHeaderSlider(); 
+        });
+    </script>
+
+</body>
+</html>

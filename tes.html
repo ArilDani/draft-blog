@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Sihir Python: Belajar Coding Itu Seru!</title>
+    <style>
+        /* --- CSS Styles --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Source+Code+Pro&display=swap');
+
+        :root {
+            --primary-color: #3776ab; /* Warna Biru Python */
+            --secondary-color: #ffd343; /* Warna Kuning Python */
+            --bg-color: #f4f9fc;
+            --text-color: #333;
+            --editor-bg: #282c34;
+            --editor-text: #abb2bf;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .intro-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            /* Placeholder style jika gambar belum ada */
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 300px;
+        }
+
+        /* --- Gaya untuk Editor Kode Interaktif --- */
+        .code-playground {
+            background: var(--editor-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .editor-header {
+            background: #21252b;
+            color: #9da5b4;
+            padding: 10px 15px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+        }
+
+        .editor-header::before {
+            content: "🔴 🟡 🟢";
+            letter-spacing: 5px;
+            margin-right: 15px;
+            font-size: 0.8em;
+        }
+
+        .code-block {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 1.1em;
+            color: var(--editor-text);
+            padding: 20px;
+            white-space: pre-wrap;
+            margin: 0;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        /* Syntax Highlighting Sederhana untuk Tampilan */
+        .code-string { color: #98c379; }
+        .code-keyword { color: #c678dd; font-weight: bold; }
+        .code-function { color: #61afef; }
+        .code-number { color: #d19a66; }
+        .code-comment { color: #7f848e; font-style: italic; }
+
+        .run-btn-container {
+            padding: 10px 20px;
+            background: #21252b;
+            text-align: right;
+        }
+
+        .run-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .run-btn:hover {
+            transform: scale(1.05);
+            background-color: #218838;
+        }
+
+        .run-btn::before {
+            content: "▶";
+            margin-right: 8px;
+        }
+
+        .output-console {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 15px 20px;
+            font-family: 'Source Code Pro', monospace;
+            border-top: 2px solid #333;
+            min-height: 40px;
+        }
+
+        .output-label {
+            color: var(--secondary-color);
+            font-size: 0.8em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .output-text {
+            color: #98c379; /* Warna hijau untuk output */
+        }
+
+        /* --- CTA Buttons --- */
+        .cta-container {
+            margin-top: 50px;
+            text-align: center;
+            padding: 30px;
+            background: #eef6fc;
+            border-radius: 15px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-primary {
+            background: linear-gradient(45deg, var(--primary-color), #5a9bd5);
+            color: white;
+            box-shadow: 0 5px 15px rgba(55, 118, 171, 0.4);
+        }
+
+        .cta-secondary {
+            background: linear-gradient(45deg, var(--secondary-color), #ffe073);
+            color: #333;
+            box-shadow: 0 5px 15px rgba(255, 211, 67, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .blog-container { padding: 15px; }
+            .cta-button { display: block; width: 80%; margin: 10px auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blog-container">
+    <img src="https://placehold.co/800x400/3776ab/FFFFFF?text=Gambar+Ilustrasi+Python+dan+Sihir+Koding" alt="Ilustrasi Ular Python ramah dengan elemen sihir pemrograman" class="intro-image">
+
+    <h1>Selamat Datang di Dunia Sihir Python! ✨</h1>
+
+    <p>Halo petualang muda! Pernahkah kamu membayangkan memiliki tongkat sihir yang bisa membuat komputermu melakukan apa saja? Mulai dari membuat game, menggambar robot, hingga membantu astronot di NASA?</p>
+    <p>Kabar gembiranya, tongkat sihir itu nyata! Namanya adalah <strong>Pemrograman</strong> (Coding).</p>
+    <p>Dan hari ini, kita akan belajar mantra paling keren dan paling mudah dipahami di seluruh dunia sihir, yaitu bahasa <strong>Python</strong>. Bayangkan Python seperti ular yang ramah dan pintar, yang mengerti bahasa manusia dan siap membantumu membangun apa saja. Tidak perlu rumus rumit, cukup kata-kata sederhana seperti bahasa Inggris!</p>
+    <p>Siap untuk mengucapkan mantra pertamamu? Ayo kita mulai petualangannya!</p>
+
+    <h2>Bab 1: Mantra Bicara (Print)</h2>
+    <p>Agar komputer kita hidup, kita harus membuatnya berbicara. Di Python, mantra untuk berbicara adalah <code>print()</code>. Ini seperti menggunakan megafon ajaib. Apapun yang kamu masukkan ke dalam tanda kurung dan tanda kutip, komputer akan mengucapkannya kembali padamu.</p>
+
+    <div class="code-playground">
+        <div class="editor-header">Editor Mantra #1</div>
+        <pre class="code-block"><span class="code-function">print</span>(<span class="code-string">"Halo Dunia! Aku penyihir koding!"</span>)</pre>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runCode(this, 'Halo Dunia! Aku penyihir koding!')">Jalankan Mantra</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Hasil Mantra:</span>
+            <span class="output-text">...</span>
+        </div>
+    </div>
+
+    <h2>Bab 2: Kotak Harta Karun (Variabel)</h2>
+    <p>Seorang penyihir hebat butuh tempat untuk menyimpan barang-barangnya. Bayangkan kamu memiliki banyak kotak kosong. Kamu bisa menempelkan label nama di kotak itu, lalu memasukkan sesuatu ke dalamnya.</p>
+    <p>Di Python, kotak ini disebut <strong>Variabel</strong>. Kamu bisa menyimpan teks, angka, atau bahkan monster (di dalam game!) di dalamnya.</p>
+
+    <div class="code-playground">
+        <div class="editor-header">Editor Mantra #2</div>
+        <pre class="code-block"><span class="code-comment"># Kita siapkan kotaknya</span>
+nama_penyihir = <span class="code-string">"Budi si Hebat"</span>
+umur = <span class="code-number">10</span>
+
+<span class="code-comment"># Ayo kita lihat isi kotaknya</span>
+<span class="code-function">print</span>(<span class="code-string">"Nama saya:"</span>)
+<span class="code-function">print</span>(nama_penyihir)
+<span class="code-function">print</span>(<span class="code-string">"Umur saya:"</span>)
+<span class="code-function">print</span>(umur)</pre>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runCode(this, 'Nama saya:\nBudi si Hebat\nUmur saya:\n10')">Jalankan Mantra</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Hasil Mantra:</span>
+            <span class="output-text">...</span>
+        </div>
+    </div>
+
+    <h2>Bab 3: Persimpangan Jalan (Logika If/Else)</h2>
+    <p>Dalam petualangan, kamu sering bertemu jalan bercabang. "Jika cuaca cerah, aku pergi ke hutan. Jika tidak (Else), aku diam di kastil."</p>
+    <p>Komputer juga perlu membuat keputusan seperti itu. Kita menggunakan mantra <code>if</code> (jika) dan <code>else</code> (jika tidak) untuk mengajari komputer memilih jalan.</p>
+
+    <div class="code-playground">
+        <div class="editor-header">Editor Mantra #3</div>
+        <pre class="code-block">cuaca = <span class="code-string">"hujan"</span>
+
+<span class="code-keyword">if</span> cuaca == <span class="code-string">"hujan"</span>:
+    <span class="code-function">print</span>(<span class="code-string">"Buka payung ajaibmu!"</span>)
+<span class="code-keyword">else</span>:
+    <span class="code-function">print</span>(<span class="code-string">"Pakai topi naga kerenmu!"</span>)</pre>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runCode(this, 'Buka payung ajaibmu!')">Jalankan Mantra</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Hasil Mantra:</span>
+            <span class="output-text">...</span>
+        </div>
+    </div>
+
+    <h2>Bab 4: Buku Mantra Mini (Fungsi)</h2>
+    <p>Kadang-kadang, ada mantra panjang yang harus kamu ucapkan berulang kali. Capek kan? Para penyihir pintar menulis mantra panjang itu di buku kecil dan memberinya judul pendek.</p>
+    <p>Di Python, ini disebut <strong>Fungsi</strong> (Function). Kamu membuat kumpulan perintah, memberinya nama, dan nanti kamu tinggal memanggil namanya saja!</p>
+
+    <div class="code-playground">
+        <div class="editor-header">Editor Mantra #4</div>
+        <pre class="code-block"><span class="code-comment"># Membuat mantra baru bernama 'sapa_teman'</span>
+<span class="code-keyword">def</span> <span class="code-function">sapa_teman</span>(nama):
+    <span class="code-function">print</span>(<span class="code-string">"Halo "</span> + nama + <span class="code-string">"! Selamat datang di kastil."</span>)
+
+<span class="code-comment"># Menggunakan mantranya berkali-kali dengan mudah!</span>
+sapa_teman(<span class="code-string">"Rara"</span>)
+sapa_teman(<span class="code-string">"Dito"</span>)</pre>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runCode(this, 'Halo Rara! Selamat datang di kastil.\nHalo Dito! Selamat datang di kastil.')">Jalankan Mantra</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Hasil Mantra:</span>
+            <span class="output-text">...</span>
+        </div>
+    </div>
+
+    <h2>Bab 5: Pabrik Robot Ajaib (Class & Object)</h2>
+    <p>Ini adalah sihir tingkat lanjut! Bayangkan kamu ingin membuat pasukan robot kucing. Kamu tidak mungkin membuatnya satu per satu dari nol, kan?</p>
+    <p>Kamu butuh "Cetak Biru" atau desain gambarnya dulu. Di Python, desain ini disebut <strong>Class</strong>.</p>
+    <p>Setelah desain (Class) jadi, kamu bisa mencetak banyak robot nyata darinya. Robot nyata yang sudah jadi itu disebut <strong>Object</strong>. Keren kan?</p>
+
+    <div class="code-playground">
+        <div class="editor-header">Editor Mantra #5 (Tingkat Lanjut!)</div>
+        <pre class="code-block"><span class="code-comment"># --- Desain Cetak Biru (Class) ---</span>
+<span class="code-keyword">class</span> <span class="code-function">RobotKucing</span>:
+    <span class="code-comment"># Ini resep untuk membuat robotnya</span>
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, nama_robot, warna_robot):
+        self.nama = nama_robot
+        self.warna = warna_robot
+
+    <span class="code-comment"># Ini kemampuan robotnya</span>
+    <span class="code-keyword">def</span> <span class="code-function">mengeong</span>(self):
+        <span class="code-function">print</span>(self.nama + <span class="code-string">" si "</span> + self.warna + <span class="code-string">" berkata: MEOONG!"</span>)
+
+<span class="code-comment"># --- Membuat Robot Nyata (Object) ---</span>
+<span class="code-comment"># Kita buat robot bernama 'RoboOyen' berwarna 'Oranye'</span>
+robotku = RobotKucing(<span class="code-string">"RoboOyen"</span>, <span class="code-string">"Oranye"</span>)
+
+<span class="code-comment"># Suruh robotnya mengeong!</span>
+robotku.mengeong()</pre>
+        <div class="run-btn-container">
+            <button class="run-btn" onclick="runCode(this, 'RoboOyen si Oranye berkata: MEOONG!')">Jalankan Mantra</button>
+        </div>
+        <div class="output-console">
+            <span class="output-label">Hasil Mantra:</span>
+            <span class="output-text">...</span>
+        </div>
+    </div>
+
+    <h2>Perjalanan Baru Saja Dimulai! 🚀</h2>
+    <p>Selamat! Kamu baru saja menyelesaikan langkah pertama untuk menjadi penyihir kode yang hebat. Jangan khawatir jika ada yang belum dimengerti sekarang. Seperti belajar naik sepeda, coding juga butuh latihan.</p>
+    <p>Teruslah mencoba, teruslah berbuat kesalahan, karena dari kesalahan itulah kita belajar paling banyak. Dunia digital menunggu karya ajaibmu!</p>
+
+    <div class="cta-container">
+        <h3>Ingin Menjadi Lebih Jago Lagi?</h3>
+        <p>Jangan berhenti di sini. Ambil tongkat sihirmu dan pelajari mantra yang lebih kuat!</p>
+        
+        <a href="#link-ke-modul-lengkap" class="cta-button cta-primary">📘 Dapatkan Modul Python Lengkap</a>
+        
+        <a href="#link-ke-blog-data-analys" class="cta-button cta-secondary">📊 Baca: Python untuk Analisis Data</a>
+    </div>
+
+</div>
+
+<script>
+    // --- JavaScript Sederhana untuk Interaktivitas ---
+    
+    // Fungsi ini dipanggil saat tombol "Jalankan Mantra" diklik
+    function runCode(buttonElement, expectedOutput) {
+        // 1. Temukan elemen 'output-text' yang berada di dalam blok editor yang sama dengan tombol
+        const editorContainer = buttonElement.closest('.code-playground');
+        const outputTextElement = editorContainer.querySelector('.output-text');
+        const runBtn = buttonElement;
+
+        // 2. Efek Loading sederhana
+        runBtn.innerHTML = "⏳ Sedang merapal...";
+        runBtn.style.opacity = "0.7";
+        outputTextElement.textContent = "Memproses...";
+        outputTextElement.style.color = "#abb2bf";
+
+        // 3. Simulasi jeda waktu agar terasa seperti sedang memproses
+        setTimeout(() => {
+            // Tampilkan hasil yang sudah disiapkan (karena ini simulasi)
+            // Kita ganti karakter baris baru (\n) dengan tag <br> agar tampil rapi di HTML
+            outputTextElement.innerHTML = expectedOutput.replace(/\n/g, '<br>');
+            outputTextElement.style.color = "#98c379"; // Warna hijau sukses
+
+            // Kembalikan tombol ke semula
+            runBtn.innerHTML = "▶ Jalankan Mantra";
+            runBtn.style.opacity = "1";
+        }, 800); // Jeda 800ms (0.8 detik)
+    }
+</script>
+
+</body>
+</html>
